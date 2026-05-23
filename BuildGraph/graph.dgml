@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<Styles>
+<Style TargetType='Node'>
+<Condition Expression="HasCategory('additionalmodules/safe')" />
+<Setter Property='Background' Value='LightGreen' />
+</Style>
+<Style TargetType='Node'>
+<Condition Expression="HasCategory('additionalmodules/pinvoke')" />
+<Setter Property='Background' Value='Orange' />
+</Style>
+<Style TargetType='Node'>
+<Condition Expression="HasCategory('additionalmodules')" />
+<Setter Property='Background' Value='LightBlue' />
+</Style>
+<Style TargetType='Node'>
+<Condition Expression="HasCategory('requiredmodules/pinvoke')" />
+<Setter Property='Background' Value='DeepSkyBlue' />
+</Style>
+<Style TargetType='Node'>
+<Condition Expression="HasCategory('requiredmodules')" />
+<Setter Property='Background' Value='LightCoral' />
+</Style>
+<Style TargetType='Node'>
+<Setter Property='Background' Value='LightGray' />
+</Style>
+</Styles>
+<Nodes>
+<Node Id='WinForms.Native.PInvoke.DWMAPI' Label='WinForms.Native.PInvoke.DWMAPI' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke' Label='WinForms.Native.PInvoke' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.GDIPLUS' Label='WinForms.Native.PInvoke.GDIPLUS' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.GDI' Label='WinForms.Native.PInvoke.GDI' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.IMM32' Label='WinForms.Native.PInvoke.IMM32' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.SHCORE' Label='WinForms.Native.PInvoke.SHCORE' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.UXTHEME' Label='WinForms.Native.PInvoke.UXTHEME' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.DWMAPI.Safe' Label='WinForms.Native.PInvoke.DWMAPI.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.Safe' Label='WinForms.Native.PInvoke.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.GDI.Safe' Label='WinForms.Native.PInvoke.GDI.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.GDIPLUS.Safe' Label='WinForms.Native.PInvoke.GDIPLUS.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.IMM32.Safe' Label='WinForms.Native.PInvoke.IMM32.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.KERNEL32.Safe' Label='WinForms.Native.PInvoke.KERNEL32.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.KERNEL32' Label='WinForms.Native.PInvoke.KERNEL32' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.SHCORE.Safe' Label='WinForms.Native.PInvoke.SHCORE.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.USER32.Safe' Label='WinForms.Native.PInvoke.USER32.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.USER32' Label='WinForms.Native.PInvoke.USER32' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.PInvoke.UXTHEME.Safe' Label='WinForms.Native.PInvoke.UXTHEME.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.Safe' Label='WinForms.Native.Safe' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native' Label='WinForms.Native' Category='AdditionalModules.PInvoke' />
+<Node Id='Runner' Label='Runner' Category='AdditionalModules.PInvoke' />
+<Node Id='WinForms.Native.Extensions' Label='WinForms.Native.Extensions' Category='AdditionalModules.PInvoke' />
+</Nodes>
+<Links>
+<Link Source='WinForms.Native.PInvoke.DWMAPI' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.GDIPLUS' Target='WinForms.Native.PInvoke.GDI' />
+<Link Source='WinForms.Native.PInvoke.GDIPLUS' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.GDI' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.IMM32' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.SHCORE' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.UXTHEME' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.DWMAPI.Safe' Target='WinForms.Native.PInvoke.DWMAPI' />
+<Link Source='WinForms.Native.PInvoke.DWMAPI.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.GDI.Safe' Target='WinForms.Native.PInvoke.GDI' />
+<Link Source='WinForms.Native.PInvoke.GDI.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.GDIPLUS.Safe' Target='WinForms.Native.PInvoke.GDIPLUS' />
+<Link Source='WinForms.Native.PInvoke.GDIPLUS.Safe' Target='WinForms.Native.PInvoke.GDI.Safe' />
+<Link Source='WinForms.Native.PInvoke.GDIPLUS.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.IMM32.Safe' Target='WinForms.Native.PInvoke.IMM32' />
+<Link Source='WinForms.Native.PInvoke.IMM32.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.KERNEL32.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.KERNEL32.Safe' Target='WinForms.Native.PInvoke.KERNEL32' />
+<Link Source='WinForms.Native.PInvoke.Safe' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.SHCORE.Safe' Target='WinForms.Native.PInvoke.SHCORE' />
+<Link Source='WinForms.Native.PInvoke.SHCORE.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.USER32.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.PInvoke.USER32.Safe' Target='WinForms.Native.PInvoke.USER32' />
+<Link Source='WinForms.Native.PInvoke.UXTHEME.Safe' Target='WinForms.Native.PInvoke.UXTHEME' />
+<Link Source='WinForms.Native.PInvoke.UXTHEME.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.Safe' Target='WinForms.Native.PInvoke.Safe' />
+<Link Source='WinForms.Native.Safe' Target='WinForms.Native' />
+<Link Source='WinForms.Native.PInvoke.KERNEL32' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native.PInvoke.USER32' Target='WinForms.Native.PInvoke' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.DWMAPI' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.GDIPLUS' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.GDI' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.IMM32' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.SHCORE' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.UXTHEME' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.KERNEL32' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke.USER32' />
+<Link Source='Runner' Target='WinForms.Native.PInvoke' />
+<Link Source='Runner' Target='WinForms.Native.Extensions' />
+<Link Source='Runner' Target='WinForms.Native' />
+<Link Source='WinForms.Native' Target='WinForms.Native.PInvoke.KERNEL32' />
+<Link Source='WinForms.Native' Target='WinForms.Native.PInvoke.USER32' />
+<Link Source='WinForms.Native' Target='WinForms.Native.PInvoke' />
+<Link Source='WinForms.Native' Target='WinForms.Native.Extensions' />
+</Links>
+</DirectedGraph>

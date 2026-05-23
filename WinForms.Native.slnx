@@ -32,7 +32,12 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="BuildGraph.ps1" />
     <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/BuildGraph/">
+    <File Path="BuildGraph/graph.dgml" />
+    <File Path="BuildGraph/graph.json" />
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests/Runner/Runner.csproj" />
