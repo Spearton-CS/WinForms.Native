@@ -18,6 +18,16 @@
     <ProjectReference Include="..\..\AdditionalModules\PInvoke\WinForms.Native.PInvoke.IMM32\WinForms.Native.PInvoke.IMM32.csproj" />
     <ProjectReference Include="..\..\AdditionalModules\PInvoke\WinForms.Native.PInvoke.SHCORE\WinForms.Native.PInvoke.SHCORE.csproj" />
     <ProjectReference Include="..\..\AdditionalModules\PInvoke\WinForms.Native.PInvoke.UXTHEME\WinForms.Native.PInvoke.UXTHEME.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.DWMAPI.Safe\WinForms.Native.PInvoke.DWMAPI.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.GDI.Safe\WinForms.Native.PInvoke.GDI.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.GDIPLUS.Safe\WinForms.Native.PInvoke.GDIPLUS.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.IMM32.Safe\WinForms.Native.PInvoke.IMM32.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.KERNEL32.Safe\WinForms.Native.PInvoke.KERNEL32.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.Safe\WinForms.Native.PInvoke.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.SHCORE.Safe\WinForms.Native.PInvoke.SHCORE.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.USER32.Safe\WinForms.Native.PInvoke.USER32.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\PInvoke\WinForms.Native.PInvoke.UXTHEME.Safe\WinForms.Native.PInvoke.UXTHEME.Safe.csproj" />
+    <ProjectReference Include="..\..\AdditionalModules\Safe\WinForms.Native.Safe\WinForms.Native.Safe.csproj" />
     <ProjectReference Include="..\..\RequiredModules\PInvoke\WinForms.Native.PInvoke.KERNEL32\WinForms.Native.PInvoke.KERNEL32.csproj" />
     <ProjectReference Include="..\..\RequiredModules\PInvoke\WinForms.Native.PInvoke.USER32\WinForms.Native.PInvoke.USER32.csproj" />
     <ProjectReference Include="..\..\RequiredModules\PInvoke\WinForms.Native.PInvoke\WinForms.Native.PInvoke.csproj" />
