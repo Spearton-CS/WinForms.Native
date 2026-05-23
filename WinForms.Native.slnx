@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/AdditionalModules/" />
+  <Folder Name="/AdditionalModules/PInvoke/">
+    <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.DWMAPI/WinForms.Native.PInvoke.DWMAPI.csproj" Id="13b0627b-fb44-4b22-b4ec-e915d8ecfa7f" />
+    <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.GDI/WinForms.Native.PInvoke.GDI.csproj" Id="4fadd547-92a6-4102-9d6b-46276345568b" />
+    <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.GDIPLUS/WinForms.Native.PInvoke.GDIPLUS.csproj" Id="e732ecb3-2234-4538-bc52-e8a70222e55b" />
+    <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.IMM32/WinForms.Native.PInvoke.IMM32.csproj" Id="a59637a4-106a-4cdc-8d74-888a25c49454" />
+    <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.SHCORE/WinForms.Native.PInvoke.SHCORE.csproj" Id="911ea686-9cdb-4de2-88a1-be01646ccaab" />
+    <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.UXTHEME/WinForms.Native.PInvoke.UXTHEME.csproj" Id="880e4846-cdd5-4f24-8a67-6e2661c0fa77" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/" />
+  <Folder Name="/AdditionalModules/Safe/PInvoke/" />
+  <Folder Name="/RequiredModules/">
+    <Project Path="RequiredModules/WinForms.Native.Extensions/WinForms.Native.Extensions.csproj" Id="6b0c136a-d3d1-499e-a248-2dd1f545573e" />
+  </Folder>
+  <Folder Name="/RequiredModules/PInvoke/">
+    <Project Path="RequiredModules/PInvoke/WinForms.Native.PInvoke.KERNEL32/WinForms.Native.PInvoke.KERNEL32.csproj" />
+    <Project Path="RequiredModules/PInvoke/WinForms.Native.PInvoke.USER32/WinForms.Native.PInvoke.USER32.csproj" />
+    <Project Path="RequiredModules/PInvoke/WinForms.Native.PInvoke/WinForms.Native.PInvoke.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Runner/Runner.csproj" />
+  </Folder>
+  <Project Path="WinForms.Native/WinForms.Native.csproj" />
+</Solution>
