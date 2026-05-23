@@ -33,6 +33,7 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="BuildGraph.ps1" />
+    <File Path="LICENSE.txt" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/Solution Items/BuildGraph/">
