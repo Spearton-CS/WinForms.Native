@@ -20,14 +20,14 @@ public static unsafe partial class Kernel32
     /// </summary>
     /// <param name="lpModuleName">The name of the loaded module (either a .dll or .exe file).</param>
     /// <returns>A <see cref="Handle"/> to the module, or a null handle if the function fails.</returns>
-    [LibraryImport(DLL)]
+    [LibraryImport(DLL, SetLastError = true)]
     public static partial Handle GetModuleHandleW(char* lpModuleName);
     /// <summary>
     /// Retrieves a module handle for the specified module using a managed string.
     /// </summary>
     /// <param name="lpModuleName">The name of the loaded module.</param>
     /// <returns>A <see cref="Handle"/> to the module.</returns>
-    [LibraryImport(DLL, StringMarshalling = StringMarshalling.Utf16)]
+    [LibraryImport(DLL, SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
     public static partial Handle GetModuleHandleW(string lpModuleName);
 
     /// <summary>

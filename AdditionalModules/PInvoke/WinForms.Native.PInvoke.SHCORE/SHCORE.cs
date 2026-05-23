@@ -22,7 +22,7 @@ public static unsafe partial class SHCORE
     /// <param name="value">One of the PROCESS_DPI_AWARENESS values that specifies the desired DPI awareness level for the process.</param>
     /// <returns>HRESULT indicating success or failure. S_OK if the awareness was set; otherwise an error code such as
     /// E_INVALIDARG or E_ACCESSDENIED.</returns>
-    [LibraryImport(DLL)]
+    [LibraryImport(DLL, SetLastError = true)]
     public static partial int SetProcessDpiAwareness(PROCESS_DPI_AWARENESS value);
     /// <summary>
     /// Retrieves the dots-per-inch (DPI) for the specified monitor.
@@ -35,7 +35,7 @@ public static unsafe partial class SHCORE
     /// <param name="dpiX">Receives the horizontal DPI value.</param>
     /// <param name="dpiY">Receives the vertical DPI value.</param>
     /// <returns>An HRESULT value: S_OK on success; otherwise an error code.</returns>
-    [LibraryImport(DLL)]
+    [LibraryImport(DLL, SetLastError = true)]
     public static partial int GetDpiForMonitor(nint hmonitor, MONITOR_DPI_TYPE dpiType, out uint dpiX, out uint dpiY);
 
     #endregion

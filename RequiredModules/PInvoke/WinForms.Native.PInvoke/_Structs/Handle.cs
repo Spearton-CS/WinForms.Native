@@ -19,6 +19,12 @@ public unsafe readonly struct Handle :
     IEqualityOperators<Handle, nint, bool>, IEquatable<nint>,
     IEqualityOperators<Handle, nuint, bool>, IEquatable<nuint>
 {
+    public static Handle Zero
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => default;
+    }
+
     /// <summary> Initializes a new instance of <see cref="Handle"/> using a raw pointer. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Handle(void* ptr) => PointerValue = ptr;

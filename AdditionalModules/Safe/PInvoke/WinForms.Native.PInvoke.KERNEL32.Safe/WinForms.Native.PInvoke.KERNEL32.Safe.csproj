@@ -16,6 +16,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Spearton-CS/WinForms.Native</RepositoryUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RootNamespace>WinForms.Native.PInvoke.Safe</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
