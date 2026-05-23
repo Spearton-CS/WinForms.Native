@@ -96,7 +96,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when the window becomes or ceases to be the foreground window.
         /// </summary>
-        [FieldOffset(136)] public delegate* managed<ref WinForm, bool, void> OnActiveChanged;
+        [FieldOffset(136)] public delegate* managed<ref WinForm, bool, bool, void> OnActivateChanged;
 
         /// <summary>
         /// Occurs when a physical key is pressed down.
@@ -189,7 +189,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when a control sends a command message or a menu item is selected.
         /// </summary>
-        [FieldOffset(304)] public delegate* managed<ref WinForm, int, Handle, void> OnCommand;
+        [FieldOffset(304)] public delegate* managed<ref WinForm, ushort, ushort, Handle, void> OnCommand;
 
         /// <summary>
         /// Occurs when the mouse wheel is rotated.
@@ -253,6 +253,37 @@ unsafe partial struct WinForm
         /// Occurs when the horizontal mouse wheel is tilted or rotated.
         /// </summary>
         [FieldOffset(408)] public delegate* managed<ref WinForm, short, short, short, void> OnMouseHWheel;
+
+        [FieldOffset(416)] public delegate* managed<ref WinForm, void> OnChildActivate;
+
+        [FieldOffset(424)] public delegate* managed<ref WinForm, void> OnCancelMode;
+
+        [FieldOffset(432)] public delegate* managed<ref WinForm, char*, bool> OnSetText;
+        
+        [FieldOffset(440)] public delegate* managed<ref WinForm, bool, void> OnSetRedraw;
+
+        [FieldOffset(448)] public delegate* managed<ref WinForm, void> OnSysColorChange;
+        [FieldOffset(456)] public delegate* managed<ref WinForm, nuint, char*, void> OnSettingChange;
+        [FieldOffset(464)] public delegate* managed<ref WinForm, void> OnFontChange;
+        [FieldOffset(472)] public delegate* managed<ref WinForm, void> OnTimeChange;
+
+        [FieldOffset(480)] public delegate* managed<ref WinForm, uint, bool> OnQueryEndSession;
+        [FieldOffset(488)] public delegate* managed<ref WinForm, bool, uint, void> OnEndSession;
+        [FieldOffset(496)] public delegate* managed<ref WinForm, bool> OnQueryOpen;
+
+        [FieldOffset(504)] public delegate* managed<ref WinForm, void*, void> OnGetMinMaxInfo;
+
+        [FieldOffset(512)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColorMsgBox;
+        [FieldOffset(520)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColorDlg;
+
+        [FieldOffset(528)] public delegate* managed<ref WinForm, void> OnQueuedSync;
+
+        [FieldOffset(536)] public delegate* managed<ref WinForm, int, void> OnQuit;
+
+        [FieldOffset(544)] public delegate* managed<ref WinForm, char*, nuint, nint> OnGetText;
+        [FieldOffset(552)] public delegate* managed<ref WinForm, nint> OnGetTextLength;
+
+        [FieldOffset(560)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColor;
 
         /// <summary>
         /// Reserved 64-byte block for storing custom user data or additional function pointers within the VTABLE.

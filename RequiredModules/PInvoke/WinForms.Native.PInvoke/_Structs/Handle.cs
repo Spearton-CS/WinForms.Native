@@ -14,17 +14,17 @@ namespace WinForms.Native.PInvoke;
 /// of a memory address.
 /// </remarks>
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe readonly struct Handle
-    : IEqualityOperators<Handle, Handle, bool>, IEquatable<Handle>,
+public unsafe readonly struct Handle :
+    IEqualityOperators<Handle, Handle, bool>, IEquatable<Handle>,
     IEqualityOperators<Handle, nint, bool>, IEquatable<nint>,
     IEqualityOperators<Handle, nuint, bool>, IEquatable<nuint>
 {
     /// <summary> Initializes a new instance of <see cref="Handle"/> using a raw pointer. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Handle(void* ptr) => Pointer = ptr;
+    public Handle(void* ptr) => PointerValue = ptr;
 
     /// <summary> The handle interpreted as a raw untyped pointer. </summary>
-    [FieldOffset(0)] public readonly void* Pointer;
+    [FieldOffset(0)] public readonly void* PointerValue;
 
     /// <summary> Initializes a new instance of <see cref="Handle"/> using a signed native integer. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -55,11 +55,11 @@ public unsafe readonly struct Handle
 
     /// <summary> Compares two handles by their underlying pointer addresses. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool operator ==(Handle a, Handle b) => a.Pointer == b.Pointer;
+    public static bool operator ==(Handle a, Handle b) => a.PointerValue == b.PointerValue;
 
     /// <summary> Compares two handles for inequality. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool operator !=(Handle a, Handle b) => a.Pointer != b.Pointer;
+    public static bool operator !=(Handle a, Handle b) => a.PointerValue != b.PointerValue;
 
     /// <summary> Compares the handle to a signed native integer for equality. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -91,7 +91,7 @@ public unsafe readonly struct Handle
 
     /// <summary> Explicitly converts a <see cref="Handle"/> to a raw pointer. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static explicit operator void*(Handle handle) => handle.Pointer;
+    public static explicit operator void*(Handle handle) => handle.PointerValue;
 
     /// <summary> Explicitly converts a <see cref="Handle"/> to a signed native integer. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

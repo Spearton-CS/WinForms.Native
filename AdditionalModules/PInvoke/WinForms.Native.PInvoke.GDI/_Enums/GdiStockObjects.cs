@@ -1,7 +1,7 @@
 ﻿namespace WinForms.Native.PInvoke;
 
 [Flags]
-public enum StockObjects : int
+public enum GdiStockObjects : int
 {
     WHITE_BRUSH = 0,
     LTGRAY_BRUSH = 1,

@@ -28,8 +28,4 @@
     <ProjectReference Include="..\WinForms.Native.PInvoke.GDI\WinForms.Native.PInvoke.GDI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="_Enums\" />
-  </ItemGroup>
-
 </Project>

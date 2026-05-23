@@ -96,6 +96,22 @@ unsafe partial struct WinForm
 
             #region VIEW events
 
+            case WndProcMsgType.SysColorChange:
+                var onSysColorChange = vtable->OnSysColorChange;
+                if (onSysColorChange is not null)
+                {
+                    onSysColorChange(ref *form);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.SetRedraw:
+                var onSetRedraw = vtable->OnSetRedraw;
+                if (onSetRedraw is not null)
+                    onSetRedraw(ref *form, wParam != 0);
+                return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
             case WndProcMsgType.Paint:
                 var onPaint = vtable->OnPaint;
                 if (onPaint is not null)
@@ -120,16 +136,6 @@ unsafe partial struct WinForm
                 {
                     onPaintBackground(ref *form, (Handle)wParam);
                     return 1;
-                }
-                else
-                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
-
-            case WndProcMsgType.NcPaint:
-                var onNcPaint = vtable->OnNcPaint;
-                if (onNcPaint is not null)
-                {
-                    onNcPaint(ref *form, (Handle)wParam);
-                    return 0;
                 }
                 else
                     return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
@@ -172,6 +178,68 @@ unsafe partial struct WinForm
                         return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
                 }
 
+            case WndProcMsgType.CtlColor:
+                var onCtlColor = vtable->OnCtlColor;
+                if (onCtlColor is not null)
+                    return onCtlColor(ref *form, (Handle)wParam, (Handle)lParam).SignedValue;
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.FontChange:
+                var onFontChange = vtable->OnFontChange;
+                if (onFontChange is not null)
+                {
+                    onFontChange(ref *form);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.CtlColorMsgBox:
+                var onCtlColorMsgBox = vtable->OnCtlColorMsgBox;
+                if (onCtlColorMsgBox is not null)
+                    return onCtlColorMsgBox(ref *form, (Handle)wParam, (Handle)lParam).SignedValue;
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+            case WndProcMsgType.CtlColorDlg:
+                var onCtlColorDlg = vtable->OnCtlColorDlg;
+                if (onCtlColorDlg is not null)
+                    return onCtlColorDlg(ref *form, (Handle)wParam, (Handle)lParam).SignedValue;
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            #endregion
+
+            #region NON-CLIENT VIEW events
+
+            case WndProcMsgType.NcPaint:
+                var onNcPaint = vtable->OnNcPaint;
+                if (onNcPaint is not null)
+                {
+                    onNcPaint(ref *form, (Handle)wParam);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.SetText:
+                var onSetText = vtable->OnSetText;
+                if (onSetText is not null)
+                    onSetText(ref *form, (char*)lParam);
+                return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+            case WndProcMsgType.GetText:
+                var onGetText = vtable->OnGetText;
+                if (onGetText is not null)
+                    return onGetText(ref *form, (char*)lParam, (nuint)wParam);
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+            case WndProcMsgType.GetTextLength:
+                var onGetTextLength = vtable->OnGetTextLength;
+                if (onGetTextLength is not null)
+                    return onGetTextLength(ref *form);
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
             #endregion
 
             #region WINDOW events
@@ -213,6 +281,48 @@ unsafe partial struct WinForm
                 var onClosing = vtable->OnClosing;
                 if (onClosing is not null && onClosing(ref *form))
                     return 0;
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.Activate:
+                var onActivated = vtable->OnActivateChanged;
+                if (onActivated is not null)
+                {
+                    onActivated(ref *form,
+                        ((nuint)wParam & 0xFFFF) != 0,
+                        ((nuint)wParam >> 16) != 0);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.CancelMode:
+                var onCancelMode = vtable->OnCancelMode;
+                if (onCancelMode is not null)
+                {
+                    onCancelMode(ref *form);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.ChildActivate:
+                var onChildActivate = vtable->OnChildActivate;
+                if (onChildActivate is not null)
+                {
+                    onChildActivate(ref *form);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.GetMinMaxInfo:
+                var onGetMinMaxInfo = vtable->OnGetMinMaxInfo;
+                if (onGetMinMaxInfo is not null)
+                {
+                    onGetMinMaxInfo(ref *form, (void*)lParam);
+                    return 0;
+                }
                 else
                     return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
@@ -399,6 +509,66 @@ unsafe partial struct WinForm
                 if (onTimer is not null)
                     onTimer(ref *form, unchecked((nuint)wParam));
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.QueryEndSession:
+                var onQueryEndSession = vtable->OnQueryEndSession;
+                if (onQueryEndSession is not null)
+                    return vtable->OnQueryEndSession(ref *form, (uint)lParam) ? 1 : 0;
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.Quit:
+                var onQuit = vtable->OnQuit;
+                if (onQuit is not null)
+                    onQuit(ref *form, (int)wParam);
+                return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.QueryOpen:
+                var onQueryOpen = vtable->OnQueryOpen;
+                if (onQueryOpen is not null)
+                    return vtable->OnQueryOpen(ref *form) ? 1 : 0;
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.EndSession:
+                var onEndSession = vtable->OnEndSession;
+                if (onEndSession is not null)
+                {
+                    vtable->OnEndSession(ref *form, wParam != 0, (uint)lParam);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.SettingChange:
+                var settingChange = vtable->OnSettingChange;
+                if (settingChange is not null)
+                {
+                    settingChange(ref *form, (nuint)wParam, (char*)lParam);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.TimeChange:
+                var onTimeChange = vtable->OnTimeChange;
+                if (onTimeChange is not null)
+                {
+                    onTimeChange(ref *form);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
+
+            case WndProcMsgType.QueuedSync:
+                var onQueuedSync = vtable->OnQueuedSync;
+                if (onQueuedSync is not null)
+                {
+                    onQueuedSync(ref *form);
+                    return 0;
+                }
+                else
+                    return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
             #endregion
 

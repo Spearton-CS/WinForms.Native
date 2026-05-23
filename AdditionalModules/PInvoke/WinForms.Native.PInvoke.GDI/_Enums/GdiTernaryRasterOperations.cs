@@ -1,7 +1,7 @@
 ﻿namespace WinForms.Native.PInvoke;
 
 [Flags]
-public enum TernaryRasterOperations : uint
+public enum GdiTernaryRasterOperations : uint
 {
     /// <summary>
     /// Direct copy
