@@ -12,6 +12,8 @@ public static unsafe partial class SHCORE
 {
     public const string DLL = "shcore.dll";
 
+    #region DPI
+
     /// <summary>
     /// Sets the DPI awareness for the current process.
     /// </summary>
@@ -35,4 +37,6 @@ public static unsafe partial class SHCORE
     /// <returns>An HRESULT value: S_OK on success; otherwise an error code.</returns>
     [LibraryImport(DLL)]
     public static partial int GetDpiForMonitor(nint hmonitor, MONITOR_DPI_TYPE dpiType, out uint dpiX, out uint dpiY);
+
+    #endregion
 }

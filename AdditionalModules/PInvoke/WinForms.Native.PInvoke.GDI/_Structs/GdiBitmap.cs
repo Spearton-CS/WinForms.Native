@@ -14,9 +14,15 @@ public unsafe struct GdiBitmap
     [FieldOffset(8)] public int bmHeight;
     [FieldOffset(12)] public int bmWidthBytes;
     [FieldOffset(16)] public ushort bmPlanes;
-    [FieldOffset(18)] public ushort bmBitsPixel;
+    [FieldOffset(18)] public GdiBitDepth bmBitsPixel;
     [FieldOffset(24)] public void* bmBits;
 
+    /// <summary>
+    /// Returns a Span of the actual pixel data, not the struct metadata.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public readonly Span<byte> GetPixelData()
+        => bmBits is null ? [] : new Span<byte>(bmBits, bmHeight * bmWidthBytes);
     [UnscopedRef]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly Span<byte> AsSpan()

@@ -13,6 +13,8 @@ public static unsafe partial class Kernel32
     /// </summary>
     public const string DLL = "kernel32.dll";
 
+    #region Modules
+
     /// <summary>
     /// Retrieves a module handle for the specified module.
     /// </summary>
@@ -37,4 +39,6 @@ public static unsafe partial class Kernel32
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Handle GetCurrentModule() => GetModuleHandleW((char*)null);
+
+    #endregion
 }

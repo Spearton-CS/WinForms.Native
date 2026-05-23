@@ -168,16 +168,16 @@ internal unsafe static class Program
             var selectedBgColor = new GdipColor(62, 62, 66, 255);// Selection Highlight
 
             // ===== BRUSHES =====
-            GDIP.CreateSolidFill(bgColor, out var bgBrush);
-            GDIP.CreateSolidFill(sidebarColor, out var sidebarBrush);
-            GDIP.CreateSolidFill(headerColor, out var headerBrush);
+            GDIP.CreateSolidBrush(bgColor, out var bgBrush);
+            GDIP.CreateSolidBrush(sidebarColor, out var sidebarBrush);
+            GDIP.CreateSolidBrush(headerColor, out var headerBrush);
 
-            GDIP.CreateSolidFill(cardColor, out var cardBrush);
-            GDIP.CreateSolidFill(textPrimary, out var textBrush);
-            GDIP.CreateSolidFill(textSecondary, out var subTextBrush);
+            GDIP.CreateSolidBrush(cardColor, out var cardBrush);
+            GDIP.CreateSolidBrush(textPrimary, out var textBrush);
+            GDIP.CreateSolidBrush(textSecondary, out var subTextBrush);
 
-            GDIP.CreateSolidFill(accentColor, out var accentBrush);
-            GDIP.CreateSolidFill(selectedBgColor, out var selectedBrush);
+            GDIP.CreateSolidBrush(accentColor, out var accentBrush);
+            GDIP.CreateSolidBrush(selectedBgColor, out var selectedBrush);
 
             // ===== PEN =====
             GDIP.CreatePen(borderColor, 1f, GdipUnit.Pixel, out var borderPen);
@@ -312,7 +312,7 @@ internal unsafe static class Program
 
             // 3. Define Card with Transparency (Alpha = 180 for a slight glass effect)
             GdipRectF cardRect = new(50, 50, width - 100, 100);
-            GDIP.CreateSolidFill(new GdipColor(180, 45, 45, 45), out GdipHBrush cardBrush);
+            GDIP.CreateSolidBrush(new GdipColor(180, 45, 45, 45), out GdipHBrush cardBrush);
 
             // GDI+ Accent: Semi-transparent Blue Pen with thickness 1.5 for a "retina" look
             GDIP.CreatePen(new GdipColor(255, 0, 120, 215), 1.5f, GdipUnit.Pixel, out GdipHPen cardPen);
@@ -326,8 +326,8 @@ internal unsafe static class Program
             GDIP.CreateFont(family, 14, GdipFontStyle.Bold, GdipUnit.Pixel, out GdipHFont titleFont);
             GDIP.CreateFont(family, 11, GdipFontStyle.Regular, GdipUnit.Pixel, out GdipHFont subFont);
 
-            GDIP.CreateSolidFill(new GdipColor(255, 255, 255, 255), out GdipHBrush whiteBrush);
-            GDIP.CreateSolidFill(new GdipColor(150, 180, 180, 180), out GdipHBrush grayBrush);
+            GDIP.CreateSolidBrush(new GdipColor(255, 255, 255, 255), out GdipHBrush whiteBrush);
+            GDIP.CreateSolidBrush(new GdipColor(150, 180, 180, 180), out GdipHBrush grayBrush);
 
             string title = "GDI+ Accelerated Dashboard";
             string subTitle = $"Hardware: GDI+ Flat API | Mode: {GdipSmoothingMode.AntiAlias}";
