@@ -8,7 +8,7 @@ namespace WinForms.Native.PInvoke;
 /// <remarks>Contains native imports for Windows 8.1 and later. Call SetProcessDpiAwareness before creating any UI
 /// or windows and do not mix with SetProcessDPIAware; changing awareness after initialization may fail. Callers must
 /// handle HRESULTs returned by the native functions.</remarks>
-public static unsafe partial class SHCORE
+public static unsafe partial class ShCore
 {
     public const string DLL = "shcore.dll";
 

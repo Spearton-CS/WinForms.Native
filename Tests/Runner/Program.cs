@@ -1,5 +1,6 @@
 ﻿using WinForms.Native;
 using WinForms.Native.PInvoke;
+using Safe = WinForms.Native.PInvoke.Safe;
 
 namespace Runner;
 
@@ -13,7 +14,7 @@ internal unsafe static class Program
         GdipStatus status = GDIP.Startup(out GdipHSessionToken gdipToken, in GdipStartupInput.Default);
         if (status != GdipStatus.Ok)
             throw new Exception($"GDI+ Failed to start: {status}");
-        _ = SHCORE.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PER_MONITOR_DPI_AWARE);
+        Safe.ShCore.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PER_MONITOR_DPI_AWARE);
 
         if (File.Exists(".log"))
             File.Delete(".log");

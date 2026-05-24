@@ -38,7 +38,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\WinForms.Native\WinForms.Native.csproj" />
+    <ProjectReference Include="..\PInvoke\WinForms.Native.PInvoke.KERNEL32.Safe\WinForms.Native.PInvoke.KERNEL32.Safe.csproj" />
     <ProjectReference Include="..\PInvoke\WinForms.Native.PInvoke.Safe\WinForms.Native.PInvoke.Safe.csproj" />
+    <ProjectReference Include="..\PInvoke\WinForms.Native.PInvoke.USER32.Safe\WinForms.Native.PInvoke.USER32.Safe.csproj" />
   </ItemGroup>
 
 </Project>

@@ -45,7 +45,7 @@ public static unsafe partial class User32
 
     /// <summary> Calls the default window procedure to provide default processing for any window messages. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial nint DefWindowProcW(HWND hWnd, WndProcMsgType Msg, nint wParam, nint lParam);
+    public static partial nint DefWindowProcW(HWND hWnd, WndProcMsgType msg, nint wParam, nint lParam);
 
     /// <summary> Indicates to the system that a thread has made a request to terminate (quit). </summary>
     [LibraryImport(DLL, SetLastError = true)]
@@ -53,7 +53,7 @@ public static unsafe partial class User32
 
     /// <summary> Retrieves a message from the calling thread's message queue. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial int GetMessageW(out MSG lpMsg, HWND hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+    public static partial BOOL GetMessageW(out MSG lpMsg, HWND hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
     /// <summary> Translates virtual-key messages into character messages. </summary>
     [LibraryImport(DLL, SetLastError = true)]
     public static partial BOOL TranslateMessage(in MSG lpMsg);
@@ -62,7 +62,7 @@ public static unsafe partial class User32
     public static partial nint DispatchMessageW(in MSG lpMsg);
     /// <summary> Places (posts) a message in the message queue associated with the thread that created the specified window. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL PostMessageW(HWND hWnd, WndProcMsgType Msg, nint wParam, nint lParam);
+    public static partial BOOL PostMessageW(HWND hWnd, WndProcMsgType msg, nint wParam, nint lParam);
 
     /// <summary> Retrieves information about the specified window. </summary>
     [LibraryImport(DLL, SetLastError = true, EntryPoint = "GetWindowLongPtrW")]

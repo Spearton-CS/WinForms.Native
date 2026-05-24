@@ -14,7 +14,7 @@ public static class Kernel32
     {
         HInstance result = Core.GetModuleHandleW(lpModuleName);
         if (result == default)
-            throw new Kernel32PInvokeException(nameof(GetModuleHandle), Marshal.GetLastPInvokeError(), Marshal.GetLastPInvokeErrorMessage());
+            throw new Kernel32PInvokeException(nameof(GetModuleHandle), (HResult)Marshal.GetLastPInvokeError(), Marshal.GetLastPInvokeErrorMessage());
         else
             return result;
     }
@@ -23,7 +23,7 @@ public static class Kernel32
     {
         HInstance result = Core.GetModuleHandleW(lpModuleName);
         if (result == default)
-            throw new Kernel32PInvokeException(nameof(GetModuleHandle), Marshal.GetLastPInvokeError(), Marshal.GetLastPInvokeErrorMessage());
+            throw new Kernel32PInvokeException(nameof(GetModuleHandle), (HResult)Marshal.GetLastPInvokeError(), Marshal.GetLastPInvokeErrorMessage());
         else
             return result;
     }

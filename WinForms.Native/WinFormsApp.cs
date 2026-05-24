@@ -63,7 +63,7 @@ public unsafe static class WinFormsApp
 
         User32.ShowWindow(winForm.HWND, ShowWindowCommand.Show);
 
-        while (User32.GetMessageW(out MSG msg, default, 0, 0) != 0)
+        while (User32.GetMessageW(out MSG msg, default, 0, 0))
         {
             User32.TranslateMessage(in msg);
             User32.DispatchMessageW(in msg);
@@ -98,7 +98,7 @@ public unsafe static class WinFormsApp
 
         User32.ShowWindow(winForm.HWND, ShowWindowCommand.Show);
 
-        while (User32.GetMessageW(out MSG msg, default, 0, 0) != 0)
+        while (User32.GetMessageW(out MSG msg, default, 0, 0))
         {
             User32.TranslateMessage(in msg);
             User32.DispatchMessageW(in msg);
