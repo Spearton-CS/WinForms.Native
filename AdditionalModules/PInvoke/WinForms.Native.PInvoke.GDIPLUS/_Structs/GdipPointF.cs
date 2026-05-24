@@ -15,14 +15,14 @@ public readonly record struct GdipPointF(
     [field: FieldOffset(0)] float X,
     [field: FieldOffset(4)] float Y) :
     IEqualityOperators<GdipPointF, GdipPointF, bool>, IEquatable<GdipPointF>,
-    IEqualityOperators<GdipPointF, POINT, bool>, IEquatable<POINT>
+    IEqualityOperators<GdipPointF, Point, bool>, IEquatable<Point>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public readonly bool Equals(POINT other) => this == other;
+    public readonly bool Equals(Point other) => this == other;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool operator ==(GdipPointF left, POINT right)
+    public static bool operator ==(GdipPointF left, Point right)
         => left.X == right.X && left.Y == right.Y;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool operator !=(GdipPointF left, POINT right)
+    public static bool operator !=(GdipPointF left, Point right)
         => left.X != right.X || left.Y != right.Y;
 }

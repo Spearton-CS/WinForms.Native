@@ -12,17 +12,17 @@ public readonly record struct GdipRectF(
     [field: FieldOffset(12)] float Height
     )
     : IEqualityOperators<GdipRectF, GdipRectF, bool>, IEquatable<GdipRectF>,
-    IEqualityOperators<GdipRectF, RECT, bool>, IEquatable<RECT>
+    IEqualityOperators<GdipRectF, Rect, bool>, IEquatable<Rect>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool Equals(RECT other)
+    public bool Equals(Rect other)
         => this == other;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool operator ==(GdipRectF left, RECT right)
+    public static bool operator ==(GdipRectF left, Rect right)
         => left.X == right.X && left.Y == right.Y
             && left.Width == right.Width && left.Height == right.Height;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool operator !=(GdipRectF left, RECT right)
+    public static bool operator !=(GdipRectF left, Rect right)
         => left.X != right.X || left.Y != right.Y
             || left.Width != right.Width || left.Height != right.Height;
 

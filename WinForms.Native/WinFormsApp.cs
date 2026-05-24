@@ -22,9 +22,9 @@ public unsafe static class WinFormsApp
     {
         HInstance hInst = Kernel32.GetCurrentModule();
 
-        WNDCLASSEXW wc = new()
+        WndClassExW wc = new()
         {
-            cbSize = (uint)sizeof(WNDCLASSEXW),
+            cbSize = (uint)sizeof(WndClassExW),
             style = ClassStyles.Standard,
             lpfnWndProc = &WinForm.DefaultWndProc,
             hInstance = hInst,

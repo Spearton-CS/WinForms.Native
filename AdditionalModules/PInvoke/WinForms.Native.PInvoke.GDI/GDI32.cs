@@ -65,9 +65,9 @@ public static unsafe partial class GDI32
     public static partial BOOL TextOutW(GdiHDC hdc, int x, int y, string lpString, int len);
 
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL GetTextExtentPoint32W(GdiHDC hdc, char* lpString, int len, out SIZE lpSize);
+    public static partial BOOL GetTextExtentPoint32W(GdiHDC hdc, char* lpString, int len, out Size lpSize);
     [LibraryImport(DLL, SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
-    public static partial BOOL GetTextExtentPoint32W(GdiHDC hdc, string lpString, int len, out SIZE lpSize);
+    public static partial BOOL GetTextExtentPoint32W(GdiHDC hdc, string lpString, int len, out Size lpSize);
 
     #endregion
 
@@ -100,12 +100,12 @@ public static unsafe partial class GDI32
     [LibraryImport(DLL, SetLastError = true)]
     public static partial BOOL Rectangle(GdiHDC hdc, int left, int top, int right, int bottom);
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial int FillRect(GdiHDC hdc, ref RECT lprc, GdiHBrush hbr);
+    public static partial int FillRect(GdiHDC hdc, ref Rect lprc, GdiHBrush hbr);
 
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL MoveToEx(GdiHDC hdc, int x, int y, ref POINT lpPoint);
+    public static partial BOOL MoveToEx(GdiHDC hdc, int x, int y, ref Point lpPoint);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static BOOL MoveToEx(GdiHDC hdc, int x, int y) => MoveToEx(hdc, x, y, ref Unsafe.NullRef<POINT>());
+    public static BOOL MoveToEx(GdiHDC hdc, int x, int y) => MoveToEx(hdc, x, y, ref Unsafe.NullRef<Point>());
 
     [LibraryImport(DLL, SetLastError = true)]
     public static partial BOOL LineTo(GdiHDC hdc, int x, int y);

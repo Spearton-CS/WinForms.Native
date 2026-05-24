@@ -22,8 +22,8 @@ public unsafe struct PAINTSTRUCT
     /// <summary> Indicates whether the background must be erased. </summary>
     [FieldOffset(8)] public BOOL fErase;
 
-    /// <summary> A <see cref="RECT"/> structure that specifies the upper left and lower right corners of the rectangle in which the painting is requested. </summary>
-    [FieldOffset(12)] public RECT rcPaint;
+    /// <summary> A <see cref="Rect"/> structure that specifies the upper left and lower right corners of the rectangle in which the painting is requested. </summary>
+    [FieldOffset(12)] public Rect rcPaint;
 
     /// <summary> Reserved; used internally by the system. </summary>
     [FieldOffset(28)] public BOOL fRestore;

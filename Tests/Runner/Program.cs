@@ -10,7 +10,7 @@ internal unsafe static class Program
     {
         if (WinFormsApp.Initialize() == default)
             throw new SystemException();
-        GdipStatus status = GDIP.Startup(out nint gdipToken, in GdipStartupInput.Default, nint.Zero);
+        GdipStatus status = GDIP.Startup(out GdipHSessionToken gdipToken, in GdipStartupInput.Default);
         if (status != GdipStatus.Ok)
             throw new Exception($"GDI+ Failed to start: {status}");
         _ = SHCORE.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PER_MONITOR_DPI_AWARE);
@@ -41,7 +41,7 @@ internal unsafe static class Program
             Shown = &OnFormShown,
             OnClosed = &OnFormClosed,
             //OnPaint = (delegate* managed<ref WinForm, Handle, RECT, void>)(delegate* managed<ref WinForm, GdiHDC, RECT, void>)&OnFormPaintGDI32
-            OnPaint = (delegate* managed<ref WinForm, Handle, RECT, void>)(delegate* managed<ref WinForm, GdiHDC, RECT, void>)&OnFormPaintGDIP
+            OnPaint = (delegate* managed<ref WinForm, Handle, Rect, void>)(delegate* managed<ref WinForm, GdiHDC, Rect, void>)&OnFormPaintGDIP
         };
         WinForm test = new()
         {
@@ -128,7 +128,7 @@ internal unsafe static class Program
     //    GDI32.DeleteDC(memHdc);
     //}
 
-    private static void OnFormPaintGDIP(ref WinForm form, GdiHDC hdc, RECT paintRect)
+    private static void OnFormPaintGDIP(ref WinForm form, GdiHDC hdc, Rect paintRect)
     {
         const bool BEAUTIFUL = true;
         int width = paintRect.Width;

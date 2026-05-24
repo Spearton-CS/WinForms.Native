@@ -16,14 +16,14 @@ unsafe partial struct WinForm
     /// Uses <c>EntryPoint</c> for <c>UnmanagedCallersOnly</c>, allowing it to be passed directly to <c>WNDCLASSEXW</c>.
     /// It performs a high-speed lookup of the <see cref="WinForm"/> instance via <c>GetWindowLongPtr</c> (GWLP_USERDATA).
     /// </remarks>
-    [UnmanagedCallersOnly(EntryPoint = "WinForm_DefaultWndProc")]
+    [UnmanagedCallersOnly(EntryPoint = "WinForm_DefaultWndProc", CallConvs = [typeof(CallConvStdcall)])]
     public static nint DefaultWndProc(HWND hwnd, WndProcMsgType msg, nint wParam, nint lParam)
     {
         WinForm* form = (WinForm*)User32.GetWindowLongPtrW(hwnd, WindowLongIndex.UserData);
         VTABLE* vtable;
         if (form is null && msg is WndProcMsgType.NcCreate)
         {
-            var createStruct = (CREATESTRUCTW*)lParam;
+            var createStruct = (CreateStructW*)lParam;
             form = (WinForm*)createStruct->lpCreateParams;
             User32.SetWindowLongPtrW(hwnd, WindowLongIndex.UserData, (nint)form);
             form->HWND = hwnd;
@@ -340,7 +340,7 @@ unsafe partial struct WinForm
                 if (!form->Flags.HasFlag(WndProcReservedFlags.MouseTrack))
                 {
                     form->Flags |= WndProcReservedFlags.MouseTrack;
-                    TRACKMOUSEEVENT tme = new(TRACKMOUSEEVENT.TME_LEAVE, hwnd, default);
+                    TrackMouseEvent tme = new(TrackMouseEventFlags.Leave, hwnd, default);
                     User32.TrackMouseEvent(ref tme);
 
                     var onMouseEnter = vtable->OnMouseEnter;

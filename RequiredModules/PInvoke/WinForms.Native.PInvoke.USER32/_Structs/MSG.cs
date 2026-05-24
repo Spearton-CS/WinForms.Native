@@ -9,7 +9,7 @@ namespace WinForms.Native.PInvoke;
 public struct MSG
 {
     /// <summary> A handle to the window whose window procedure receives the message. </summary>
-    [FieldOffset(0)] public Handle hwnd;
+    [FieldOffset(0)] public HWND hwnd;
     /// <summary> The message identifier. </summary>
     [FieldOffset(8)] public uint message;
     /// <summary> Additional information about the message. The exact meaning depends on the value of the message member. </summary>
@@ -19,7 +19,5 @@ public struct MSG
     /// <summary> The time at which the message was posted. </summary>
     [FieldOffset(28)] public uint time;
     /// <summary> The cursor position, in screen coordinates, when the message was posted. </summary>
-    [FieldOffset(32)] public int ptX;
-    /// <summary> The Y-coordinate of the cursor position. </summary>
-    [FieldOffset(36)] public int ptY;
+    [FieldOffset(32)] public Point pt;
 }

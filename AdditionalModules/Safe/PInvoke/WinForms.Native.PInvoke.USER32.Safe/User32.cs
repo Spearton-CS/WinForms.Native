@@ -10,7 +10,7 @@ public static class User32
     #region ClassEx
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ATOM RegisterClassEx(in WNDCLASSEXW classEx)
+    public static ATOM RegisterClassEx(in WndClassExW classEx)
     {
         ATOM result = Core.RegisterClassExW(in classEx);
         if (result == default)

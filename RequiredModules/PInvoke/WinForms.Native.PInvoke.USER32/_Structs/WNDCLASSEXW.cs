@@ -6,14 +6,14 @@ namespace WinForms.Native.PInvoke;
 /// Contains window class information. It is used with the RegisterClassEx and GetClassInfoEx functions.
 /// </summary>
 [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Unicode, Size = 80)]
-public unsafe struct WNDCLASSEXW
+public unsafe struct WndClassExW
 {
     /// <summary> The size, in bytes, of this structure. </summary>
     [FieldOffset(0)] public uint cbSize;
     /// <summary> The class style(s). </summary>
     [FieldOffset(4)] public ClassStyles style;
     /// <summary> A pointer to the window procedure (WndProc). </summary>
-    [FieldOffset(8)] public delegate* unmanaged<HWND, WndProcMsgType, nint, nint, nint> lpfnWndProc;
+    [FieldOffset(8)] public delegate* unmanaged[Stdcall]<HWND, WndProcMsgType, nint, nint, nint> lpfnWndProc;
     /// <summary> The number of extra bytes to allocate following the window-class structure. </summary>
     [FieldOffset(16)] public int cbClsExtra;
     /// <summary> The number of extra bytes to allocate following the window instance. </summary>

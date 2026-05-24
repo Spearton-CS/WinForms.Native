@@ -17,7 +17,7 @@ public static unsafe partial class User32
 
     /// <summary> Registers a window class for subsequent use in calls to the CreateWindowExW function. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial ATOM RegisterClassExW(in WNDCLASSEXW classEx);
+    public static partial ATOM RegisterClassExW(in WndClassExW classEx);
 
     #endregion
 
@@ -92,13 +92,13 @@ public static unsafe partial class User32
 
     /// <summary> Retrieves the dimensions of the bounding rectangle of the specified window. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL GetWindowRect(HWND hWnd, out RECT lpRect);
+    public static partial BOOL GetWindowRect(HWND hWnd, out Rect lpRect);
     /// <summary> Retrieves the coordinates of a window's client area. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL GetClientRect(HWND hWnd, out RECT lpRect);
+    public static partial BOOL GetClientRect(HWND hWnd, out Rect lpRect);
     /// <summary> Calculates the required size of the window rectangle, based on the desired client-rectangle size. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL AdjustWindowRectEx(ref RECT lpRect, WindowStyles dwStyle, BOOL bMenu, WindowExStyles dwExStyle);
+    public static partial BOOL AdjustWindowRectEx(ref Rect lpRect, WindowStyles dwStyle, BOOL bMenu, WindowExStyles dwExStyle);
 
     #endregion
 
@@ -169,10 +169,10 @@ public static unsafe partial class User32
 
     /// <summary> Adds a rectangle to the specified window's update region. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL InvalidateRect(HWND hWnd, in RECT lpRect, BOOL bErase);
+    public static partial BOOL InvalidateRect(HWND hWnd, in Rect lpRect, BOOL bErase);
     /// <summary> Invalidates the entire client area of the specified window. </summary>
     public static BOOL InvalidateRect(HWND hWnd, BOOL bErase)
-        => InvalidateRect(hWnd, in Unsafe.NullRef<RECT>(), bErase);
+        => InvalidateRect(hWnd, in Unsafe.NullRef<Rect>(), bErase);
     /// <summary> Updates the client area of the specified window by sending a WM_PAINT message. </summary>
     [LibraryImport(DLL, SetLastError = true)]
     public static partial BOOL UpdateWindow(HWND hWnd);
@@ -186,7 +186,7 @@ public static unsafe partial class User32
 
     /// <summary> Fills a rectangle by using the specified brush. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial int FillRect(Handle hDC, in RECT lprc, Handle hbr);
+    public static partial int FillRect(Handle hDC, in Rect lprc, Handle hbr);
 
     #endregion
 
@@ -194,7 +194,7 @@ public static unsafe partial class User32
 
     /// <summary> Posts messages when the mouse pointer leaves a window or hovers over a window for a specified amount of time. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL TrackMouseEvent(ref TRACKMOUSEEVENT lpEventTrack);
+    public static partial BOOL TrackMouseEvent(ref TrackMouseEvent lpEventTrack);
 
     #endregion
 

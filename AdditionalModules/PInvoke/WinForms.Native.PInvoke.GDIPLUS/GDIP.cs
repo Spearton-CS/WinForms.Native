@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace WinForms.Native.PInvoke;
 
@@ -9,9 +10,16 @@ public static unsafe partial class GDIP
     #region Init|Deinit GDI+ for process
 
     [LibraryImport(DLL, SetLastError = true, EntryPoint = "GdiplusStartup")]
-    public static partial GdipStatus Startup(out nint token, in GdipStartupInput input, nint output);
+    //[UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])] //IDK needed it or LibraryImport will decide it self...
+    public static partial GdipStatus Startup(out GdipHSessionToken token, in GdipStartupInput input, GdipStartupOutput* output);
+    [LibraryImport(DLL, SetLastError = true, EntryPoint = "GdiplusStartup")]
+    public static partial GdipStatus Startup(out GdipHSessionToken token, in GdipStartupInput input, out GdipStartupOutput output);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static GdipStatus Startup(out GdipHSessionToken token, in GdipStartupInput input)
+        => Startup(out token, in input, null);
+
     [LibraryImport(DLL, SetLastError = true, EntryPoint = "GdiplusShutdown")]
-    public static partial void Shutdown(nint token);
+    public static partial void Shutdown(GdipHSessionToken token);
 
     #endregion
 
@@ -40,7 +48,7 @@ public static unsafe partial class GDIP
     public static partial GdipStatus CreateSolidBrush(GdipColor color, out GdipHBrush brush);
     [LibraryImport(DLL, SetLastError = true, EntryPoint = "GdipCreateLineBrushI")]
     public static partial GdipStatus CreateLineBrush(
-        in POINT pt1, in POINT pt2,
+        in Point pt1, in Point pt2,
         GdipColor color1, GdipColor color2,
         GdipWrapMode wrapMode, out GdipHBrush brush);
 

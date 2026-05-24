@@ -6,7 +6,7 @@ namespace WinForms.Native.PInvoke;
 /// Defines the initialization parameters passed to the window procedure of an application.
 /// </summary>
 [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Unicode, Size = 72)]
-public unsafe struct CREATESTRUCTW
+public unsafe struct CreateStructW
 {
     /// <summary>
     /// Contains additional data which may be used to create the window. 
@@ -14,11 +14,11 @@ public unsafe struct CREATESTRUCTW
     /// </summary>
     [FieldOffset(0)] public void* lpCreateParams;
     /// <summary> A handle to the module that owns the new window. </summary>
-    [FieldOffset(8)] public Handle hInstance;
+    [FieldOffset(8)] public HInstance hInstance;
     /// <summary> A handle to the menu to be used by the new window. </summary>
-    [FieldOffset(16)] public Handle hMenu;
+    [FieldOffset(16)] public HMenu hMenu;
     /// <summary> A handle to the parent window, if the window is a child window. </summary>
-    [FieldOffset(24)] public Handle hwndParent;
+    [FieldOffset(24)] public HWND hwndParent;
     /// <summary> The height of the new window, in pixels. </summary>
     [FieldOffset(32)] public int cy;
     /// <summary> The width of the new window, in pixels. </summary>

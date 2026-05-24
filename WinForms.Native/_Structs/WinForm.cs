@@ -158,12 +158,12 @@ public unsafe partial struct WinForm
     /// <remarks>The getter retrieves the current window rectangle via User32.GetWindowRect. The setter moves
     /// and resizes the window using User32.SetWindowPos and does not change the window's z-order (NoZOrder).
     /// Coordinates are in screen (device) pixels.</remarks>
-    public readonly RECT Bounds
+    public readonly Rect Bounds
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-            User32.GetWindowRect(HWND, out RECT rect);
+            User32.GetWindowRect(HWND, out Rect rect);
             return rect;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -176,7 +176,7 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Getting returns the current top-left point of the window bounds. Setting moves the window to
     /// the specified coordinates without changing its size or z-order.</remarks>
-    public readonly POINT Position
+    public readonly Point Position
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => Bounds.Point;
@@ -189,7 +189,7 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Setting preserves the left and top edges and updates Right to Left + Width and Bottom to Top
     /// + Height.</remarks>
-    public readonly SIZE Size
+    public readonly Size Size
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => Bounds.Size;
@@ -256,18 +256,18 @@ public unsafe partial struct WinForm
     /// User32.AdjustWindowRectEx with the current Style and ExStyle and User32.SetWindowPos to resize the window; the
     /// rectangle's position is ignored and only Width/Height are applied. Requires a valid HWND and invokes native
     /// User32 APIs; call from the UI thread.</remarks>
-    public readonly RECT ClientBounds
+    public readonly Rect ClientBounds
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-            User32.GetClientRect(HWND, out RECT rect);
+            User32.GetClientRect(HWND, out Rect rect);
             return rect;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         set
         {
-            RECT rect = value;
+            Rect rect = value;
             User32.AdjustWindowRectEx(ref rect, Style, false, ExStyle);
             User32.SetWindowPos(HWND, default, 0, 0, rect.Width, rect.Height,
                 SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder);
@@ -279,7 +279,7 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Equivalent to ClientBounds.Point. Value is expressed in the control's client coordinate
     /// space.</remarks>
-    public readonly POINT ClientPosition
+    public readonly Point ClientPosition
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => ClientBounds.Point;
@@ -289,7 +289,7 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Getting returns ClientBounds.Size. Setting replaces ClientBounds with a rectangle at (0, 0)
     /// and the specified width and height.</remarks>
-    public readonly SIZE ClientSize
+    public readonly Size ClientSize
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => ClientBounds.Size;

@@ -64,11 +64,11 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when the window dimensions have changed.
         /// </summary>
-        [FieldOffset(80)] public delegate* managed<ref WinForm, SIZE, void> OnResize;
+        [FieldOffset(80)] public delegate* managed<ref WinForm, Size, void> OnResize;
         /// <summary>
         /// Occurs when the window has been moved to new coordinates.
         /// </summary>
-        [FieldOffset(88)] public delegate* managed<ref WinForm, POINT, void> OnMove;
+        [FieldOffset(88)] public delegate* managed<ref WinForm, Point, void> OnMove;
 
         /// <summary>
         /// Occurs when the window title (text) has been modified.
@@ -144,7 +144,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// The main drawing event. Occurs when the window or a part of it needs to be redrawn.
         /// </summary>
-        [FieldOffset(224)] public delegate* managed<ref WinForm, Handle, RECT, void> OnPaint;
+        [FieldOffset(224)] public delegate* managed<ref WinForm, Handle, Rect, void> OnPaint;
         /// <summary>
         /// Occurs when the window background needs to be painted.
         /// </summary>
@@ -170,7 +170,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when the display DPI settings for the window have changed.
         /// </summary>
-        [FieldOffset(272)] public delegate* managed<ref WinForm, uint, ref RECT, void> OnDpiChanged;
+        [FieldOffset(272)] public delegate* managed<ref WinForm, uint, ref Rect, void> OnDpiChanged;
         /// <summary>
         /// Occurs when the Desktop Window Manager (DWM) composition state changes.
         /// </summary>
@@ -199,11 +199,11 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs while the window is being resized. Allows modification of the sizing rectangle.
         /// </summary>
-        [FieldOffset(320)] public delegate* managed<ref WinForm, ref RECT, void> OnSizing;
+        [FieldOffset(320)] public delegate* managed<ref WinForm, ref Rect, void> OnSizing;
         /// <summary>
         /// Occurs while the window is being moved. Allows modification of the moving rectangle.
         /// </summary>
-        [FieldOffset(328)] public delegate* managed<ref WinForm, ref RECT, void> OnMoving;
+        [FieldOffset(328)] public delegate* managed<ref WinForm, ref Rect, void> OnMoving;
 
         /// <summary>
         /// Occurs when the cursor needs to be set (e.g., when moving between controls).
