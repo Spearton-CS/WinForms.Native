@@ -39,7 +39,7 @@ public unsafe partial struct WinForm
     /// The native window handle (HWND) assigned to this form by the OS.
     /// </summary>
     /// <remarks>Stored at offset 0. A value of zero (default) indicates the window has not been created yet.</remarks>
-    [FieldOffset(0)] public Handle HWND;
+    [FieldOffset(0)] public HWND HWND;
     /// <summary>
     /// Pointer to the virtual method table (VTABLE) containing function pointers for event handling.
     /// </summary>
@@ -63,7 +63,7 @@ public unsafe partial struct WinForm
     public readonly bool IsCreated
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => HWND.UnsignedValue != 0;
+        get => HWND != default;
     }
 
     /// <summary>
@@ -370,7 +370,7 @@ public unsafe partial struct WinForm
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => (ExStyle & WindowExStyles.TopMost) != 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => User32.SetWindowPos(HWND, (Handle)(value ? -1 : -2), 0, 0, 0, 0,
+        set => User32.SetWindowPos(HWND, (HWND)(Handle)(value ? -1 : -2), 0, 0, 0, 0,
             SetWindowPosFlags.NoMove | SetWindowPosFlags.NoSize); //-1 == TopMost, -2 == NoTopMost
     }
 
@@ -412,7 +412,7 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Invokes <see cref="User32.GetParent"/> and <see cref="User32.SetParent"/>. 
     /// Changing the parent re-parents the window at the OS level.</remarks>
-    public readonly Handle ParentHWND
+    public readonly HWND ParentHWND
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => User32.GetParent(HWND);

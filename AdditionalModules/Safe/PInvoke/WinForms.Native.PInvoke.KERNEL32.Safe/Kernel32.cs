@@ -10,25 +10,25 @@ public static class Kernel32
     #region Modules
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe Handle GetModuleHandle(char* lpModuleName)
+    public static unsafe HInstance GetModuleHandle(char* lpModuleName)
     {
-        Handle result = Core.GetModuleHandleW(lpModuleName);
-        if (result == default(Handle))
+        HInstance result = Core.GetModuleHandleW(lpModuleName);
+        if (result == default)
             throw new Kernel32PInvokeException(nameof(GetModuleHandle), Marshal.GetLastPInvokeError(), Marshal.GetLastPInvokeErrorMessage());
         else
             return result;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Handle GetModuleHandle(string lpModuleName)
+    public static HInstance GetModuleHandle(string lpModuleName)
     {
-        Handle result = Core.GetModuleHandleW(lpModuleName);
-        if (result == default(Handle))
+        HInstance result = Core.GetModuleHandleW(lpModuleName);
+        if (result == default)
             throw new Kernel32PInvokeException(nameof(GetModuleHandle), Marshal.GetLastPInvokeError(), Marshal.GetLastPInvokeErrorMessage());
         else
             return result;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe Handle GetCurrentModule() => GetModuleHandle((char*)null);
+    public static unsafe HInstance GetCurrentModule() => GetModuleHandle((char*)null);
 
     #endregion
 }

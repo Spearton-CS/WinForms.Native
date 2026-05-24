@@ -20,7 +20,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// The primary entry point for window messages. If provided, overrides the default WndProc logic.
         /// </summary>
-        [FieldOffset(0)] public delegate* managed<Handle, WndProcMsgType, nint, nint, nint> WndProc;
+        [FieldOffset(0)] public delegate* managed<HWND, WndProcMsgType, nint, nint, nint> WndProc;
 
         /// <summary>
         /// Occurs when the window is first initialized, before it becomes visible.
@@ -271,7 +271,7 @@ unsafe partial struct WinForm
         [FieldOffset(488)] public delegate* managed<ref WinForm, bool, uint, void> OnEndSession;
         [FieldOffset(496)] public delegate* managed<ref WinForm, bool> OnQueryOpen;
 
-        [FieldOffset(504)] public delegate* managed<ref WinForm, void*, void> OnGetMinMaxInfo;
+        [FieldOffset(504)] public delegate* managed<ref WinForm, ref MinMaxInfo, void> OnGetMinMaxInfo;
 
         [FieldOffset(512)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColorMsgBox;
         [FieldOffset(520)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColorDlg;

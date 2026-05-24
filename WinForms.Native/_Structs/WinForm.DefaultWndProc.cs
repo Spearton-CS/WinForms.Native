@@ -1,8 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace WinForms.Native;
-
-using System.Runtime.CompilerServices;
 
 using Extensions;
 
@@ -18,7 +17,7 @@ unsafe partial struct WinForm
     /// It performs a high-speed lookup of the <see cref="WinForm"/> instance via <c>GetWindowLongPtr</c> (GWLP_USERDATA).
     /// </remarks>
     [UnmanagedCallersOnly(EntryPoint = "WinForm_DefaultWndProc")]
-    public static nint DefaultWndProc(Handle hwnd, WndProcMsgType msg, nint wParam, nint lParam)
+    public static nint DefaultWndProc(HWND hwnd, WndProcMsgType msg, nint wParam, nint lParam)
     {
         WinForm* form = (WinForm*)User32.GetWindowLongPtrW(hwnd, WindowLongIndex.UserData);
         VTABLE* vtable;
@@ -58,7 +57,7 @@ unsafe partial struct WinForm
     /// Handles critical window lifecycle stages: creation, drawing, mouse/keyboard input, and destruction.
     /// </remarks>
     public static nint DefaultWndProc_WindowMsgSwitch(
-        Handle hwnd,
+        HWND hwnd,
         WinForm* form,
         VTABLE* vtable,
         WndProcMsgType msg,
@@ -320,7 +319,7 @@ unsafe partial struct WinForm
                 var onGetMinMaxInfo = vtable->OnGetMinMaxInfo;
                 if (onGetMinMaxInfo is not null)
                 {
-                    onGetMinMaxInfo(ref *form, (void*)lParam);
+                    onGetMinMaxInfo(ref *form, ref *(MinMaxInfo*)lParam);
                     return 0;
                 }
                 else
@@ -586,7 +585,7 @@ unsafe partial struct WinForm
     /// A specialized dispatcher for dialog-specific messages (currently not implemented).
     /// </summary>
     public static nint DefaultWndProc_DialogMsgSwitch(
-        Handle hwnd,
+        HWND hwnd,
         WinForm* form,
         VTABLE* vtable,
         WndProcMsgType msg,

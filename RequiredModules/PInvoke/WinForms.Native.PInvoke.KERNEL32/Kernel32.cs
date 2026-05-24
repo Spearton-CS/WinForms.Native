@@ -21,14 +21,14 @@ public static unsafe partial class Kernel32
     /// <param name="lpModuleName">The name of the loaded module (either a .dll or .exe file).</param>
     /// <returns>A <see cref="Handle"/> to the module, or a null handle if the function fails.</returns>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial Handle GetModuleHandleW(char* lpModuleName);
+    public static partial HInstance GetModuleHandleW(char* lpModuleName);
     /// <summary>
     /// Retrieves a module handle for the specified module using a managed string.
     /// </summary>
     /// <param name="lpModuleName">The name of the loaded module.</param>
     /// <returns>A <see cref="Handle"/> to the module.</returns>
     [LibraryImport(DLL, SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
-    public static partial Handle GetModuleHandleW(string lpModuleName);
+    public static partial HInstance GetModuleHandleW(string lpModuleName);
 
     /// <summary>
     /// Retrieves the module handle for the current process.
@@ -38,7 +38,7 @@ public static unsafe partial class Kernel32
     /// which returning the base address of the mapping for the calling process.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Handle GetCurrentModule() => GetModuleHandleW((char*)null);
+    public static HInstance GetCurrentModule() => GetModuleHandleW((char*)null);
 
     #endregion
 }

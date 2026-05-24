@@ -8,7 +8,7 @@ internal unsafe static class Program
     [STAThread]
     private static void Main()
     {
-        if (WinFormsApp.Initialize() == 0)
+        if (WinFormsApp.Initialize() == default)
             throw new SystemException();
         GdipStatus status = GDIP.Startup(out nint gdipToken, in GdipStartupInput.Default, nint.Zero);
         if (status != GdipStatus.Ok)

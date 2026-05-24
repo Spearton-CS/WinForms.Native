@@ -18,9 +18,9 @@ public unsafe static class WinFormsApp
     /// User32.RegisterClassExW.</remarks>
     /// <returns>The class atom returned by RegisterClassExW identifying the registered window class, or zero if registration
     /// fails.</returns>
-    public static ushort Initialize()
+    public static ATOM Initialize()
     {
-        Handle hInst = Kernel32.GetCurrentModule();
+        HInstance hInst = Kernel32.GetCurrentModule();
 
         WNDCLASSEXW wc = new()
         {
@@ -44,12 +44,12 @@ public unsafe static class WinFormsApp
     /// <param name="winForm">The WinForm instance to initialize and run; its HWND is set to the created window handle.</param>
     /// <param name="initialTitle">Optional pointer to the initial window title; if null, the default class name is used.</param>
     /// <param name="hWndParent">Handle of the parent window; defaults to none to create a top-level window.</param>
-    public static void Run(ref WinForm winForm, char* initialTitle = null, Handle hWndParent = default)
+    public static void Run(ref WinForm winForm, char* initialTitle = null, HWND hWndParent = default)
     {
-        Handle hInst = Kernel32.GetCurrentModule();
+        HInstance hInst = Kernel32.GetCurrentModule();
         fixed (WinForm* pForm = &winForm)
             winForm.HWND = User32.CreateWindowExW(
-                0,
+                WindowExStyles.None,
                 WinForm.DefaultClassNamePointer,
                 initialTitle is null ? WinForm.DefaultClassNamePointer : initialTitle,
                 WindowStyles.OverlappedWindow,
@@ -79,12 +79,12 @@ public unsafe static class WinFormsApp
     /// <param name="winForm">The WinForm instance to initialize and run; its HWND is set to the created window handle.</param>
     /// <param name="initialTitle">Optional pointer to the initial window title; if null, the default class name is used.</param>
     /// <param name="hWndParent">Handle of the parent window; defaults to none to create a top-level window.</param>
-    public static void Run(ref WinForm winForm, string? initialTitle = null, Handle hWndParent = default)
+    public static void Run(ref WinForm winForm, string? initialTitle = null, HWND hWndParent = default)
     {
-        Handle hInst = Kernel32.GetCurrentModule();
+        HInstance hInst = Kernel32.GetCurrentModule();
         fixed (WinForm* pForm = &winForm)
             winForm.HWND = User32.CreateWindowExW(
-                0,
+                WindowExStyles.None,
                 WinForm.DefaultClassNameConst,
                 initialTitle is null ? WinForm.DefaultClassNameConst : initialTitle,
                 WindowStyles.OverlappedWindow,
