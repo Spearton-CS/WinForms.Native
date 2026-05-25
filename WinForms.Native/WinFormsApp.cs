@@ -24,7 +24,6 @@ public unsafe static class WinFormsApp
 
         WndClassExW wc = new()
         {
-            cbSize = (uint)sizeof(WndClassExW),
             style = ClassStyles.Standard,
             lpfnWndProc = &WinForm.DefaultWndProc,
             hInstance = hInst,
@@ -58,7 +57,7 @@ public unsafe static class WinFormsApp
                 hWndParent, default, hInst, pForm
             );
 
-        if (winForm.HWND == default(Handle))
+        if (winForm.HWND == Handle.Zero)
             return;
 
         User32.ShowWindow(winForm.HWND, ShowWindowCommand.Show);

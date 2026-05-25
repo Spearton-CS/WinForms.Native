@@ -67,6 +67,11 @@ public unsafe readonly struct Handle :
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool operator !=(Handle a, Handle b) => a.PointerValue != b.PointerValue;
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator ==(Handle a, void* b) => a.PointerValue == b;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator !=(Handle a, void* b) => a.PointerValue != b;
+
     /// <summary> Compares the handle to a signed native integer for equality. </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly bool Equals(nint other) => this == other;

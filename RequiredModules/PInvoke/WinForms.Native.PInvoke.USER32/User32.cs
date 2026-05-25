@@ -45,7 +45,7 @@ public static unsafe partial class User32
 
     /// <summary> Calls the default window procedure to provide default processing for any window messages. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial nint DefWindowProcW(HWND hWnd, WndProcMsgType msg, nint wParam, nint lParam);
+    public static partial LResult DefWindowProcW(HWND hWnd, WndProcMsgType msg, WParam wParam, LParam lParam);
 
     /// <summary> Indicates to the system that a thread has made a request to terminate (quit). </summary>
     [LibraryImport(DLL, SetLastError = true)]
@@ -59,10 +59,10 @@ public static unsafe partial class User32
     public static partial BOOL TranslateMessage(in MSG lpMsg);
     /// <summary> Dispatches a message to a window procedure. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial nint DispatchMessageW(in MSG lpMsg);
+    public static partial LResult DispatchMessageW(in MSG lpMsg);
     /// <summary> Places (posts) a message in the message queue associated with the thread that created the specified window. </summary>
     [LibraryImport(DLL, SetLastError = true)]
-    public static partial BOOL PostMessageW(HWND hWnd, WndProcMsgType msg, nint wParam, nint lParam);
+    public static partial BOOL PostMessageW(HWND hWnd, WndProcMsgType msg, WParam wParam, LParam lParam);
 
     /// <summary> Retrieves information about the specified window. </summary>
     [LibraryImport(DLL, SetLastError = true, EntryPoint = "GetWindowLongPtrW")]

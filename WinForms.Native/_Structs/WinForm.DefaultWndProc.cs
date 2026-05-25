@@ -17,7 +17,7 @@ unsafe partial struct WinForm
     /// It performs a high-speed lookup of the <see cref="WinForm"/> instance via <c>GetWindowLongPtr</c> (GWLP_USERDATA).
     /// </remarks>
     [UnmanagedCallersOnly(EntryPoint = "WinForm_DefaultWndProc", CallConvs = [typeof(CallConvStdcall)])]
-    public static nint DefaultWndProc(HWND hwnd, WndProcMsgType msg, nint wParam, nint lParam)
+    public static LResult DefaultWndProc(HWND hwnd, WndProcMsgType msg, WParam wParam, LParam lParam)
     {
         WinForm* form = (WinForm*)User32.GetWindowLongPtrW(hwnd, WindowLongIndex.UserData);
         VTABLE* vtable;
@@ -56,13 +56,13 @@ unsafe partial struct WinForm
     /// Maps <see cref="WndProcMsgType"/> to the corresponding delegates in the <see cref="VTABLE"/>.
     /// Handles critical window lifecycle stages: creation, drawing, mouse/keyboard input, and destruction.
     /// </remarks>
-    public static nint DefaultWndProc_WindowMsgSwitch(
+    public static LResult DefaultWndProc_WindowMsgSwitch(
         HWND hwnd,
         WinForm* form,
         VTABLE* vtable,
         WndProcMsgType msg,
-        nint wParam,
-        nint lParam)
+        WParam wParam,
+        LParam lParam)
     {
         switch (msg)
         {
@@ -143,7 +143,7 @@ unsafe partial struct WinForm
                 var onSetCursor = vtable->OnSetCursor;
                 if (onSetCursor is not null)
                 {
-                    onSetCursor(ref *form, (HitTestValues)(lParam & 0xFFFF), (WndProcMsgType)((lParam >> 16) & 0xFFFF));
+                    onSetCursor(ref *form, lParam.GetHitTestValues(), lParam.GetWndProcMsgType());
                     return 1;
                 }
                 else
@@ -261,7 +261,7 @@ unsafe partial struct WinForm
             case WndProcMsgType.Size:
                 var onResize = vtable->OnResize;
                 if (onResize is not null)
-                    onResize(ref *form, new((int)(lParam & 0xFFFF), (int)((lParam >> 16) & 0xFFFF)));
+                    onResize(ref *form, lParam.GetX(), lParam.GetY());
                 var onMinimize = vtable->OnMinimize;
                 var onMaximize = vtable->OnMaximize;
                 if (wParam == 1 && onMinimize is not null)
@@ -273,7 +273,7 @@ unsafe partial struct WinForm
             case WndProcMsgType.Move:
                 var onMove = vtable->OnMove;
                 if (onMove is not null)
-                    onMove(ref *form, new((short)(lParam & 0xFFFF), (short)((lParam >> 16) & 0xFFFF)));
+                    onMove(ref *form, lParam.GetX(), lParam.GetY());
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
             case WndProcMsgType.Close:
@@ -332,7 +332,7 @@ unsafe partial struct WinForm
             case WndProcMsgType.MouseActivate:
                 var onMouseActivate = vtable->OnMouseActivate;
                 if (onMouseActivate is not null)
-                    return onMouseActivate(ref *form, (Handle)wParam, (HitTestValues)(lParam & 0xFFFF), (WndProcMsgType)((lParam >> 16) & 0xFFFF));
+                    return onMouseActivate(ref *form, (Handle)wParam, lParam.GetHitTestValues(), lParam.GetWndProcMsgType());
                 else
                     return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
@@ -345,18 +345,18 @@ unsafe partial struct WinForm
 
                     var onMouseEnter = vtable->OnMouseEnter;
                     if (onMouseEnter is not null)
-                        onMouseEnter(ref *form, GetX(lParam), GetY(lParam));
+                        onMouseEnter(ref *form, lParam.GetX(), lParam.GetY());
                 }
                 var onMouseMove = vtable->OnMouseMove;
                 if (onMouseMove is not null)
-                    onMouseMove(ref *form, GetX(lParam), GetY(lParam));
+                    onMouseMove(ref *form, lParam.GetX(), lParam.GetY());
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
             case WndProcMsgType.MouseWheel:
                 var onMouseWheel = vtable->OnMouseWheel;
                 if (onMouseWheel is not null)
                 {
-                    onMouseWheel(ref *form, GetDelta(wParam), GetX(lParam), GetY(lParam));
+                    onMouseWheel(ref *form, wParam.GetDelta(), lParam.GetX(), lParam.GetY());
                     return 0;
                 }
                 else
@@ -365,7 +365,7 @@ unsafe partial struct WinForm
                 var onMouseHWheel = vtable->OnMouseHWheel;
                 if (onMouseHWheel is not null)
                 {
-                    onMouseHWheel(ref *form, GetDelta(wParam), GetX(lParam), GetY(lParam));
+                    onMouseHWheel(ref *form, wParam.GetDelta(), lParam.GetX(), lParam.GetY());
                     return 0;
                 }
                 else
@@ -375,7 +375,7 @@ unsafe partial struct WinForm
                 var onMouseHover = vtable->OnMouseHover;
                 if (onMouseHover is not null)
                 {
-                    onMouseHover(ref *form, GetX(lParam), GetY(lParam));
+                    onMouseHover(ref *form, lParam.GetX(), lParam.GetY());
                     return 0;
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
@@ -394,21 +394,21 @@ unsafe partial struct WinForm
                 {
                     var onMouseDown = vtable->OnMouseDown;
                     if (onMouseDown is not null)
-                        onMouseDown(ref *form, MouseButtons.Left, GetX(lParam), GetY(lParam));
+                        onMouseDown(ref *form, MouseButtons.Left, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
             case WndProcMsgType.RButtonDown:
                 {
                     var onMouseDown = vtable->OnMouseDown;
                     if (onMouseDown is not null)
-                        onMouseDown(ref *form, MouseButtons.Right, GetX(lParam), GetY(lParam));
+                        onMouseDown(ref *form, MouseButtons.Right, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
             case WndProcMsgType.MButtonDown:
                 {
                     var onMouseDown = vtable->OnMouseDown;
                     if (onMouseDown is not null)
-                        onMouseDown(ref *form, MouseButtons.Middle, GetX(lParam), GetY(lParam));
+                        onMouseDown(ref *form, MouseButtons.Middle, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
@@ -416,21 +416,21 @@ unsafe partial struct WinForm
                 {
                     var onMouseDoubleClick = vtable->OnMouseDoubleClick;
                     if (onMouseDoubleClick is not null)
-                        onMouseDoubleClick(ref *form, MouseButtons.Left, GetX(lParam), GetY(lParam));
+                        onMouseDoubleClick(ref *form, MouseButtons.Left, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
             case WndProcMsgType.RButtonDblClk:
                 {
                     var onMouseDoubleClick = vtable->OnMouseDoubleClick;
                     if (onMouseDoubleClick is not null)
-                        onMouseDoubleClick(ref *form, MouseButtons.Right, GetX(lParam), GetY(lParam));
+                        onMouseDoubleClick(ref *form, MouseButtons.Right, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
             case WndProcMsgType.MButtonDblClk:
                 {
                     var onMouseDoubleClick = vtable->OnMouseDoubleClick;
                     if (onMouseDoubleClick is not null)
-                        onMouseDoubleClick(ref *form, MouseButtons.Middle, GetX(lParam), GetY(lParam));
+                        onMouseDoubleClick(ref *form, MouseButtons.Middle, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
@@ -438,28 +438,28 @@ unsafe partial struct WinForm
                 {
                     var onMouseUp = vtable->OnMouseUp;
                     if (onMouseUp is not null)
-                        onMouseUp(ref *form, MouseButtons.Left, GetX(lParam), GetY(lParam));
+                        onMouseUp(ref *form, MouseButtons.Left, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
             case WndProcMsgType.RButtonUp:
                 {
                     var onMouseUp = vtable->OnMouseUp;
                     if (onMouseUp is not null)
-                        onMouseUp(ref *form, MouseButtons.Right, GetX(lParam), GetY(lParam));
+                        onMouseUp(ref *form, MouseButtons.Right, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
             case WndProcMsgType.MButtonUp:
                 {
                     var onMouseUp = vtable->OnMouseUp;
                     if (onMouseUp is not null)
-                        onMouseUp(ref *form, MouseButtons.Middle, GetX(lParam), GetY(lParam));
+                        onMouseUp(ref *form, MouseButtons.Middle, lParam.GetX(), lParam.GetY());
                 }
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
             case WndProcMsgType.NcHitTest:
                 var onNcHitTest = vtable->OnNcHitTest;
                 if (onNcHitTest is not null)
-                    return (nint)onNcHitTest(ref *form, GetX(lParam), GetY(lParam));
+                    return (nint)onNcHitTest(ref *form, lParam.GetX(), lParam.GetY());
                 else
                     return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
@@ -470,19 +470,19 @@ unsafe partial struct WinForm
             case WndProcMsgType.KeyDown:
                 var onKeyDown = vtable->OnKeyDown;
                 if (onKeyDown is not null)
-                    onKeyDown(ref *form, (VirtualKey)wParam, new KeyEventArgsFlags(lParam));
+                    onKeyDown(ref *form, (VirtualKey)(nint)wParam, new KeyEventArgsFlags(lParam));
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
             case WndProcMsgType.KeyUp:
                 var onKeyUp = vtable->OnKeyUp;
                 if (onKeyUp is not null)
-                    onKeyUp(ref *form, (VirtualKey)wParam, new KeyEventArgsFlags(lParam));
+                    onKeyUp(ref *form, (VirtualKey)(nint)wParam, new KeyEventArgsFlags(lParam));
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
-            case WndProcMsgType.Char: // <-- КРИТИЧЕСКИ ВАЖНО ДЛЯ ВВОДА ТЕКСТА
+            case WndProcMsgType.Char:
                 var onKeyPress = vtable->OnKeyPress;
                 if (onKeyPress is not null)
-                    onKeyPress(ref *form, (char)wParam);
+                    onKeyPress(ref *form, (char)(nint)wParam);
                 return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
 
             #endregion
@@ -492,7 +492,7 @@ unsafe partial struct WinForm
             case WndProcMsgType.SysCommand:
                 var onSysCommand = vtable->OnSysCommand;
                 if (onSysCommand is not null
-                    && onSysCommand(ref *form, (SysCommandType)(wParam & 0xFFF0), (int)lParam))
+                    && onSysCommand(ref *form, wParam.GetSysCommandType(), (int)lParam))
                     return 0;
                 else
                     return User32.DefWindowProcW(hwnd, msg, wParam, lParam);
@@ -584,13 +584,13 @@ unsafe partial struct WinForm
     /// <summary>
     /// A specialized dispatcher for dialog-specific messages (currently not implemented).
     /// </summary>
-    public static nint DefaultWndProc_DialogMsgSwitch(
+    public static LResult DefaultWndProc_DialogMsgSwitch(
         HWND hwnd,
         WinForm* form,
         VTABLE* vtable,
         WndProcMsgType msg,
-        nint wParam,
-        nint lParam)
+        WParam wParam,
+        LParam lParam)
     {
         throw new NotImplementedException();
         switch ((WndProcDialogMsgType)msg)
@@ -599,25 +599,4 @@ unsafe partial struct WinForm
                 return DefaultWndProc_WindowMsgSwitch(hwnd, form, vtable, msg, wParam, lParam);
         }
     }
-
-    /// <summary>
-    /// Extracts the horizontal (X) coordinate from a window message's LPARAM.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static short GetX(nint lParam) => (short)(lParam & 0xFFFF);
-    /// <summary>
-    /// Extracts the vertical (Y) coordinate from a window message's LPARAM.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static short GetY(nint lParam) => (short)((lParam >> 16) & 0xFFFF);
-    /// <summary>
-    /// Extracts the mouse wheel delta or other high-word values from a window message's WPARAM.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static short GetDelta(nint wParam) => (short)((wParam >> 16) & 0xFFFF);
-    /// <summary>
-    /// Combines two 16-bit values into a single 32/64-bit LPARAM, typically for coordinates.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static nint MakeLParam(short x, short y) => (ushort)y << 16 | (ushort)x;
 }

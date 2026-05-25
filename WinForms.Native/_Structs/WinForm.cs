@@ -463,7 +463,7 @@ public unsafe partial struct WinForm
     /// force immediate destruction.</remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void Close()
-        => User32.PostMessageW(HWND, WndProcMsgType.Close, 0, 0);
+        => User32.PostMessageW(HWND, WndProcMsgType.Close, (WParam)0, (LParam)0);
 
     #endregion
 }

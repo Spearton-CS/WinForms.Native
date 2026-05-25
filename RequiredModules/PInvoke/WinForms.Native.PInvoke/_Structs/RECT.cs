@@ -13,13 +13,9 @@ namespace WinForms.Native;
 /// </remarks>
 [StructLayout(LayoutKind.Explicit, Size = 16)]
 public readonly record struct Rect(
-    /// <summary> The x-coordinate of the upper-left corner. </summary>
     [field: FieldOffset(0)] int Left,
-    /// <summary> The y-coordinate of the upper-left corner. </summary>
     [field: FieldOffset(4)] int Top,
-    /// <summary> The x-coordinate of the lower-right corner. </summary>
     [field: FieldOffset(8)] int Right,
-    /// <summary> The y-coordinate of the lower-right corner. </summary>
     [field: FieldOffset(12)] int Bottom)
     : IEqualityOperators<Rect, Rect, bool>, IEquatable<Rect>
 {

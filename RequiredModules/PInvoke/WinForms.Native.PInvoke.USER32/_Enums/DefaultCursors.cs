@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Standard system cursor identifiers. 
-/// To use, cast the integer value to (char*) and pass to <see cref="User32.LoadCursorW"/>.
+/// To use, cast the integer value to (char*) and pass to <see cref="User32.LoadCursorW(HInstance, char*)"/>.
 /// </summary>
 public enum DefaultCursors : int
 {

@@ -6,7 +6,7 @@ namespace WinForms.Native.PInvoke;
 /// Helper structure to decode keyboard message flags contained in lParam.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
-public readonly record struct KeyEventArgsFlags(nint lParam)
+public readonly record struct KeyEventArgsFlags(LParam lParam)
 {
     public const nint
         RepeatCountMask = 0x0000_FFFF,
@@ -19,30 +19,30 @@ public readonly record struct KeyEventArgsFlags(nint lParam)
     /// <summary>
     /// The repeat count for the current message.
     /// </summary>
-    public int RepeatCount => (int)(lParam & RepeatCountMask);
+    public int RepeatCount => (int)((nint)lParam & RepeatCountMask);
 
     /// <summary>
     /// The hardware scan code.
     /// </summary>
-    public byte ScanCode => (byte)((lParam & ScanCodeMask) >> 16);
+    public byte ScanCode => (byte)(((nint)lParam & ScanCodeMask) >> 16);
 
     /// <summary>
     /// Indicates whether the key is an extended key (e.g., right-hand Alt/Ctrl).
     /// </summary>
-    public bool IsExtendedKey => (lParam & ExtendedKeyMask) != 0;
+    public bool IsExtendedKey => ((nint)lParam & ExtendedKeyMask) != 0;
 
     /// <summary>
     /// The context code. True if the ALT key is down while the key is pressed.
     /// </summary>
-    public bool IsAltDown => (lParam & ContextCodeMask) != 0;
+    public bool IsAltDown => ((nint)lParam & ContextCodeMask) != 0;
 
     /// <summary>
     /// The previous key state. True if the key was down before the message was sent (autorepeat).
     /// </summary>
-    public bool IsRepeat => (lParam & PreviousStateMask) != 0;
+    public bool IsRepeat => ((nint)lParam & PreviousStateMask) != 0;
 
     /// <summary>
     /// The transition state. False if the key is being pressed, true if it is being released.
     /// </summary>
-    public bool IsReleased => (lParam & TransitionStateMask) != 0;
+    public bool IsReleased => ((nint)lParam & TransitionStateMask) != 0;
 }

@@ -64,7 +64,7 @@ public static class User32
     #region WndProc
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static nint DefWindowProcW(HWND hWnd, WndProcMsgType msg, nint wParam, nint lParam)
+    public static LResult DefWindowProcW(HWND hWnd, WndProcMsgType msg, WParam wParam, LParam lParam)
         => Core.DefWindowProcW(hWnd, msg, wParam, lParam);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -84,10 +84,10 @@ public static class User32
     public static bool TranslateMessage(in MSG lpMsg)
         => Core.TranslateMessage(lpMsg);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static nint DispatchMessageW(in MSG lpMsg)
+    public static LResult DispatchMessageW(in MSG lpMsg)
         => Core.DispatchMessageW(in lpMsg);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool PostMessageW(HWND hWnd, WndProcMsgType msg, nint wParam, nint lParam)
+    public static bool PostMessageW(HWND hWnd, WndProcMsgType msg, WParam wParam, LParam lParam)
     {
         if (Core.PostMessageW(hWnd, msg, wParam, lParam))
             return true;

@@ -20,7 +20,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// The primary entry point for window messages. If provided, overrides the default WndProc logic.
         /// </summary>
-        [FieldOffset(0)] public delegate* managed<HWND, WndProcMsgType, nint, nint, nint> WndProc;
+        [FieldOffset(0)] public delegate* managed<HWND, WndProcMsgType, WParam, LParam, LResult> WndProc;
 
         /// <summary>
         /// Occurs when the window is first initialized, before it becomes visible.
@@ -64,11 +64,11 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when the window dimensions have changed.
         /// </summary>
-        [FieldOffset(80)] public delegate* managed<ref WinForm, Size, void> OnResize;
+        [FieldOffset(80)] public delegate* managed<ref WinForm, short, short, void> OnResize;
         /// <summary>
         /// Occurs when the window has been moved to new coordinates.
         /// </summary>
-        [FieldOffset(88)] public delegate* managed<ref WinForm, Point, void> OnMove;
+        [FieldOffset(88)] public delegate* managed<ref WinForm, short, short, void> OnMove;
 
         /// <summary>
         /// Occurs when the window title (text) has been modified.
@@ -238,11 +238,11 @@ unsafe partial struct WinForm
         /// <summary>
         /// A high-priority hook to intercept messages before any other processing.
         /// </summary>
-        [FieldOffset(384)] public delegate* managed<ref WinForm, WndProcMsgType, nint, nint, nint?> PreProcessWndProc;
+        [FieldOffset(384)] public delegate* managed<ref WinForm, WndProcMsgType, WParam, LParam, LResult?> PreProcessWndProc;
         /// <summary>
         /// A fallback hook to handle messages that were not recognized by the default logic.
         /// </summary>
-        [FieldOffset(392)] public delegate* managed<ref WinForm, WndProcMsgType, nint, nint, nint?> ProcessUnknownWndProc;
+        [FieldOffset(392)] public delegate* managed<ref WinForm, WndProcMsgType, WParam, LParam, LResult?> ProcessUnknownWndProc;
 
         /// <summary>
         /// Occurs when the enabled/disabled state of the window changes.
