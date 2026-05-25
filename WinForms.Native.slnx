@@ -8,6 +8,40 @@
     <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.SHCORE/WinForms.Native.PInvoke.SHCORE.csproj" Id="911ea686-9cdb-4de2-88a1-be01646ccaab" />
     <Project Path="AdditionalModules/PInvoke/WinForms.Native.PInvoke.UXTHEME/WinForms.Native.PInvoke.UXTHEME.csproj" Id="880e4846-cdd5-4f24-8a67-6e2661c0fa77" />
   </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/" />
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/" />
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/Common/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/DirectX/Common/WinForms.Native.PInvoke.DXGI/WinForms.Native.PInvoke.DXGI.csproj" Id="87bbe91a-0c2f-4098-acf9-e601bbfc152e" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/D2D/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/DirectX/D2D/WinForms.Native.PInvoke.Direct2D/WinForms.Native.PInvoke.Direct2D.csproj" Id="ecadaff4-f987-4620-a3d0-b096fc51abbd" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/D3D11/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/DirectX/D3D11/WinForms.Native.PInvoke.Direct3D11/WinForms.Native.PInvoke.Direct3D11.csproj" Id="e8558e21-2ca9-45e9-80fb-fa7a9de09749" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/D3D12/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/DirectX/D3D12/WinForms.Native.PInvoke.Direct3D12/WinForms.Native.PInvoke.Direct3D12.csproj" Id="1f125baf-0f83-460a-abb3-57e356be494d" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/D3DCompiler/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/DirectX/D3DCompiler/WinForms.Native.PInvoke.Direct3DCompiler/WinForms.Native.PInvoke.Direct3DCompiler.csproj" Id="b3472f58-05ef-4cc9-b01b-db153892b798" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/DirectX/DWrite/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/DirectX/DWrite/WinForms.Native.PInvoke.DirectWrite/WinForms.Native.PInvoke.DirectWrite.csproj" Id="acd1e529-096d-4a15-a4d7-faff0a890dc9" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/Vulkan/" />
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/Vulkan/Common/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/Vulkan/Common/WinForms.Native.PInvoke.Vulkan/WinForms.Native.PInvoke.Vulkan.csproj" Id="f235fb09-b852-4fcd-8fe1-049a2381f256" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/Vulkan/SpirV/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/Vulkan/SpirV/WinForms.Native.PInvoke.SpirV/WinForms.Native.PInvoke.SpirV.csproj" Id="87250834-e0a7-4a76-8b86-cb1f812119eb" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/Vulkan/Utility/" />
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/Vulkan/Video/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/Vulkan/Video/WinForms.Native.PInvoke.Vulkan.Video/WinForms.Native.PInvoke.Vulkan.Video.csproj" Id="83de03ef-24a8-4d3a-93b3-c2dd0475c0c9" />
+  </Folder>
+  <Folder Name="/AdditionalModules/PInvoke/Drivers/Vulkan/Win32/">
+    <Project Path="AdditionalModules/PInvoke/Drivers/Vulkan/Win32/WinForms.Native.PInvoke.Vulkan.Win32/WinForms.Native.PInvoke.Vulkan.Win32.csproj" Id="f103908e-9775-4702-8c59-29f374ee1fce" />
+  </Folder>
   <Folder Name="/AdditionalModules/Safe/">
     <Project Path="AdditionalModules/Safe/WinForms.Native.Safe/WinForms.Native.Safe.csproj" Id="19687e41-fbda-466f-aa96-50d0e2d9ebae" />
   </Folder>
@@ -21,6 +55,40 @@
     <Project Path="AdditionalModules/Safe/PInvoke/WinForms.Native.PInvoke.SHCORE.Safe/WinForms.Native.PInvoke.SHCORE.Safe.csproj" Id="66a598a4-ec5d-42c4-8597-3ba1f4f3d112" />
     <Project Path="AdditionalModules/Safe/PInvoke/WinForms.Native.PInvoke.USER32.Safe/WinForms.Native.PInvoke.USER32.Safe.csproj" Id="80ba7029-5f33-426e-bd48-a4ce42aae3f7" />
     <Project Path="AdditionalModules/Safe/PInvoke/WinForms.Native.PInvoke.UXTHEME.Safe/WinForms.Native.PInvoke.UXTHEME.Safe.csproj" Id="1b53c4b2-35cc-4855-938e-bd116717bf64" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/" />
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/" />
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/Common/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/DirectX/Common/WinForms.Native.PInvoke.DXGI.Safe/WinForms.Native.PInvoke.DXGI.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/D2D/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/DirectX/D2D/WinForms.Native.PInvoke.Direct2D.Safe/WinForms.Native.PInvoke.Direct2D.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/D3D11/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/DirectX/D3D11/WinForms.Native.PInvoke.Direct3D11.Safe/WinForms.Native.PInvoke.Direct3D11.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/D3D12/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/DirectX/D3D12/WinForms.Native.PInvoke.Direct3D12.Safe/WinForms.Native.PInvoke.Direct3D12.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/D3DCompiler/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/DirectX/D3DCompiler/WinForms.Native.PInvoke.Direct3DCompiler.Safe/WinForms.Native.PInvoke.Direct3DCompiler.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/DirectX/DWrite/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/DirectX/DWrite/WinForms.Native.PInvoke.DirectWrite.Safe/WinForms.Native.PInvoke.DirectWrite.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/Vulkan/" />
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Common/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Common/WinForms.Native.PInvoke.Vulkan.Safe/WinForms.Native.PInvoke.Vulkan.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/Vulkan/SpirV/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/Vulkan/SpirV/WinForms.Native.PInvoke.SpirV.Safe/WinForms.Native.PInvoke.SpirV.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Utility/" />
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Video/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Video/WinForms.Native.PInvoke.Vulkan.Video.Safe/WinForms.Native.PInvoke.Vulkan.Video.Safe.csproj" />
+  </Folder>
+  <Folder Name="/AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Win32/">
+    <Project Path="AdditionalModules/Safe/PInvoke/Drivers/Vulkan/Win32/WinForms.Native.PInvoke.Vulkan.Win32.Safe/WinForms.Native.PInvoke.Vulkan.Win32.Safe.csproj" />
   </Folder>
   <Folder Name="/RequiredModules/">
     <Project Path="RequiredModules/WinForms.Native.Extensions/WinForms.Native.Extensions.csproj" Id="6b0c136a-d3d1-499e-a248-2dd1f545573e" />
