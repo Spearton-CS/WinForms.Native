@@ -1,9 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
-namespace WinForms.Native;
+using TypedWinAPI.User32;
+using TypedWinAPI;
 
-using PInvoke;
+namespace WinForms.Native;
 
 /// <summary>
 /// Represents a high-performance, zero-allocation native window handle wrapper.
@@ -63,7 +64,7 @@ public unsafe partial struct WinForm
     public readonly bool IsCreated
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => HWND != default;
+        get => HWND != null;
     }
 
     /// <summary>
@@ -73,7 +74,7 @@ public unsafe partial struct WinForm
     public readonly ulong UserDefinedFlags
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Extensions.EnumExtensions64.RawWithoutFlag(Flags, WndProcReservedFlags.Reserved);
+        get => Flags & ~(ulong)WndProcReservedFlags.Reserved;
     }
 
     #endregion
@@ -91,7 +92,7 @@ public unsafe partial struct WinForm
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => (WindowStyles)(uint)User32.GetWindowLongPtrW(HWND, WindowLongIndex.Style);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => User32.SetWindowLongPtrW(HWND, WindowLongIndex.Style, (nint)value);
+        set => User32.SetWindowLongPtrW(HWND, WindowLongIndex.Style, (long)value);
     }
     /// <summary>
     /// Gets or sets the extended window styles for the associated window.
@@ -104,7 +105,7 @@ public unsafe partial struct WinForm
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => (WindowExStyles)(uint)User32.GetWindowLongPtrW(HWND, WindowLongIndex.ExStyle);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => User32.SetWindowLongPtrW(HWND, WindowLongIndex.ExStyle, (nint)value);
+        set => User32.SetWindowLongPtrW(HWND, WindowLongIndex.ExStyle, (long)value);
     }
 
     /// <summary>
@@ -158,12 +159,12 @@ public unsafe partial struct WinForm
     /// <remarks>The getter retrieves the current window rectangle via User32.GetWindowRect. The setter moves
     /// and resizes the window using User32.SetWindowPos and does not change the window's z-order (NoZOrder).
     /// Coordinates are in screen (device) pixels.</remarks>
-    public readonly Rect Bounds
+    public readonly RECT Bounds
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-            User32.GetWindowRect(HWND, out Rect rect);
+            User32.GetWindowRect(HWND, out RECT rect);
             return rect;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -176,12 +177,12 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Getting returns the current top-left point of the window bounds. Setting moves the window to
     /// the specified coordinates without changing its size or z-order.</remarks>
-    public readonly Point Position
+    public readonly POINT Position
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Bounds.Point;
+        get => Bounds.Location;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => User32.SetWindowPos(HWND, default, value.X, value.Y, 0, 0,
+        set => User32.SetWindowPos(HWND, default, value.x, value.y, 0, 0,
                 SetWindowPosFlags.NoSize | SetWindowPosFlags.NoZOrder);
     }
     /// <summary>
@@ -189,14 +190,14 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Setting preserves the left and top edges and updates Right to Left + Width and Bottom to Top
     /// + Height.</remarks>
-    public readonly Size Size
+    public readonly SIZE Size
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => Bounds.Size;
         set
         {
             var bounds = Bounds;
-            Bounds = bounds with { Right = bounds.Left + value.Width, Bottom = bounds.Top + value.Height };
+            Bounds = new(bounds.left, bounds.top, bounds.left + value.cx, bounds.top + value.cy);
         }
     }
 
@@ -208,9 +209,9 @@ public unsafe partial struct WinForm
     public readonly int X
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Position.X;
+        get => Position.x;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => Position = Position with { X = value };
+        set => Position = new(value, Position.y);
     }
     /// <summary>
     /// Gets or sets the Y coordinate of the Position.
@@ -220,9 +221,9 @@ public unsafe partial struct WinForm
     public readonly int Y
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Position.Y;
+        get => Position.y;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => Position = Position with { Y = value };
+        set => Position = new(Position.x, value);
     }
     /// <summary>
     /// Gets or sets the width component of the Size.
@@ -231,9 +232,9 @@ public unsafe partial struct WinForm
     public readonly int Width
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Size.Width;
+        get => Size.cx;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => Size = Size with { Width = value };
+        set => Size = new(value, Size.cy);
     }
     /// <summary>
     /// Gets or sets the height component of the Size.
@@ -243,9 +244,9 @@ public unsafe partial struct WinForm
     public readonly int Height
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Size.Height;
+        get => Size.cy;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => Size = Size with { Height = value };
+        set => Size = new(Size.cx, value);
     }
 
     /// <summary>
@@ -256,18 +257,18 @@ public unsafe partial struct WinForm
     /// User32.AdjustWindowRectEx with the current Style and ExStyle and User32.SetWindowPos to resize the window; the
     /// rectangle's position is ignored and only Width/Height are applied. Requires a valid HWND and invokes native
     /// User32 APIs; call from the UI thread.</remarks>
-    public readonly Rect ClientBounds
+    public readonly RECT ClientBounds
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-            User32.GetClientRect(HWND, out Rect rect);
+            User32.GetClientRect(HWND, out RECT rect);
             return rect;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         set
         {
-            Rect rect = value;
+            RECT rect = value;
             User32.AdjustWindowRectEx(ref rect, Style, false, ExStyle);
             User32.SetWindowPos(HWND, default, 0, 0, rect.Width, rect.Height,
                 SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder);
@@ -279,22 +280,22 @@ public unsafe partial struct WinForm
     /// </summary>
     /// <remarks>Equivalent to ClientBounds.Point. Value is expressed in the control's client coordinate
     /// space.</remarks>
-    public readonly Point ClientPosition
+    public readonly POINT ClientPosition
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => ClientBounds.Point;
+        get => ClientBounds.Location;
     }
     /// <summary>
     /// Gets or sets the size of the client area.
     /// </summary>
     /// <remarks>Getting returns ClientBounds.Size. Setting replaces ClientBounds with a rectangle at (0, 0)
     /// and the specified width and height.</remarks>
-    public readonly Size ClientSize
+    public readonly SIZE ClientSize
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => ClientBounds.Size;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => ClientBounds = new(0, 0, value.Width, value.Height);
+        set => ClientBounds = new(0, 0, value.cx, value.cy);
     }
 
     /// <summary>
@@ -305,9 +306,9 @@ public unsafe partial struct WinForm
     public readonly int ClientWidth
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => ClientSize.Width;
+        get => ClientSize.cx;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => ClientSize = ClientSize with { Width = value };
+        set => ClientSize = new(value, ClientSize.cy);
     }
     /// <summary>
     /// Gets or sets the height, in pixels, of the client area.
@@ -317,9 +318,9 @@ public unsafe partial struct WinForm
     public readonly int ClientHeight
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => ClientSize.Height;
+        get => ClientSize.cy;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => ClientSize = ClientSize with { Height = value };
+        set => ClientSize = new(ClientSize.cx, value);
     }
 
     /// <summary>
@@ -370,7 +371,7 @@ public unsafe partial struct WinForm
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => (ExStyle & WindowExStyles.TopMost) != 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        set => User32.SetWindowPos(HWND, (HWND)(Handle)(value ? -1 : -2), 0, 0, 0, 0,
+        set => User32.SetWindowPos(HWND, (HWND)(value ? -1 : -2), 0, 0, 0, 0,
             SetWindowPosFlags.NoMove | SetWindowPosFlags.NoSize); //-1 == TopMost, -2 == NoTopMost
     }
 
@@ -426,7 +427,7 @@ public unsafe partial struct WinForm
     public readonly bool HasParent
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => ParentHWND != default(Handle);
+        get => ParentHWND != null;
     }
 
     #endregion
@@ -441,7 +442,7 @@ public unsafe partial struct WinForm
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void Refresh()
     {
-        User32.InvalidateRect(HWND, true);
+        User32.InvalidateRect(HWND, null, true);
         User32.UpdateWindow(HWND);
     }
 
@@ -463,7 +464,7 @@ public unsafe partial struct WinForm
     /// force immediate destruction.</remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void Close()
-        => User32.PostMessageW(HWND, WndProcMsgType.Close, (WParam)0, (LParam)0);
+        => User32.PostMessageW(HWND, WndProcMsgType.Close, (WPARAM)0, (LPARAM)0);
 
     #endregion
 }

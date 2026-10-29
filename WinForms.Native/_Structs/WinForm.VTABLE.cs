@@ -1,8 +1,9 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace WinForms.Native;
+using TypedWinAPI;
+using TypedWinAPI.User32;
 
-using PInvoke;
+namespace WinForms.Native;
 
 unsafe partial struct WinForm
 {
@@ -20,7 +21,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// The primary entry point for window messages. If provided, overrides the default WndProc logic.
         /// </summary>
-        [FieldOffset(0)] public delegate* managed<HWND, WndProcMsgType, WParam, LParam, LResult> WndProc;
+        [FieldOffset(0)] public delegate* managed<HWND, WndProcMsgType, WPARAM, LPARAM, LRESULT> WndProc;
 
         /// <summary>
         /// Occurs when the window is first initialized, before it becomes visible.
@@ -144,33 +145,33 @@ unsafe partial struct WinForm
         /// <summary>
         /// The main drawing event. Occurs when the window or a part of it needs to be redrawn.
         /// </summary>
-        [FieldOffset(224)] public delegate* managed<ref WinForm, Handle, Rect, void> OnPaint;
+        [FieldOffset(224)] public delegate* managed<ref WinForm, HANDLE, RECT, void> OnPaint;
         /// <summary>
         /// Occurs when the window background needs to be painted.
         /// </summary>
-        [FieldOffset(232)] public delegate* managed<ref WinForm, Handle, void> OnPaintBackground;
+        [FieldOffset(232)] public delegate* managed<ref WinForm, HANDLE, void> OnPaintBackground;
         /// <summary>
         /// Occurs when the non-client area (borders and title bar) needs painting.
         /// </summary>
-        [FieldOffset(240)] public delegate* managed<ref WinForm, Handle, void> OnNcPaint;
+        [FieldOffset(240)] public delegate* managed<ref WinForm, HANDLE, void> OnNcPaint;
         /// <summary>
         /// Occurs when the window background must be erased (e.g., during resizing).
         /// </summary>
-        [FieldOffset(248)] public delegate* managed<ref WinForm, Handle, void> OnEraseBackground;
+        [FieldOffset(248)] public delegate* managed<ref WinForm, HANDLE, void> OnEraseBackground;
 
         /// <summary>
         /// Occurs when a request is made to draw the window into a specified device context (HDC).
         /// </summary>
-        [FieldOffset(256)] public delegate* managed<ref WinForm, Handle, PrintFlags, void> OnPrint;
+        [FieldOffset(256)] public delegate* managed<ref WinForm, HANDLE, PrintFlags, void> OnPrint;
         /// <summary>
         /// Occurs when a request is made to draw only the client area into an HDC.
         /// </summary>
-        [FieldOffset(264)] public delegate* managed<ref WinForm, Handle, PrintFlags, void> OnPrintClient;
+        [FieldOffset(264)] public delegate* managed<ref WinForm, HANDLE, PrintFlags, void> OnPrintClient;
 
         /// <summary>
         /// Occurs when the display DPI settings for the window have changed.
         /// </summary>
-        [FieldOffset(272)] public delegate* managed<ref WinForm, uint, ref Rect, void> OnDpiChanged;
+        [FieldOffset(272)] public delegate* managed<ref WinForm, uint, ref RECT, void> OnDpiChanged;
         /// <summary>
         /// Occurs when the Desktop Window Manager (DWM) composition state changes.
         /// </summary>
@@ -184,12 +185,12 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when a periodic timer event is triggered.
         /// </summary>
-        [FieldOffset(296)] public delegate* managed<ref WinForm, nuint, void> OnTimer;
+        [FieldOffset(296)] public delegate* managed<ref WinForm, ulong, void> OnTimer;
 
         /// <summary>
         /// Occurs when a control sends a command message or a menu item is selected.
         /// </summary>
-        [FieldOffset(304)] public delegate* managed<ref WinForm, ushort, ushort, Handle, void> OnCommand;
+        [FieldOffset(304)] public delegate* managed<ref WinForm, ushort, ushort, HANDLE, void> OnCommand;
 
         /// <summary>
         /// Occurs when the mouse wheel is rotated.
@@ -199,11 +200,11 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs while the window is being resized. Allows modification of the sizing rectangle.
         /// </summary>
-        [FieldOffset(320)] public delegate* managed<ref WinForm, ref Rect, void> OnSizing;
+        [FieldOffset(320)] public delegate* managed<ref WinForm, ref RECT, void> OnSizing;
         /// <summary>
         /// Occurs while the window is being moved. Allows modification of the moving rectangle.
         /// </summary>
-        [FieldOffset(328)] public delegate* managed<ref WinForm, ref Rect, void> OnMoving;
+        [FieldOffset(328)] public delegate* managed<ref WinForm, ref RECT, void> OnMoving;
 
         /// <summary>
         /// Occurs when the cursor needs to be set (e.g., when moving between controls).
@@ -213,7 +214,7 @@ unsafe partial struct WinForm
         /// <summary>
         /// Occurs when the mouse is clicked in an inactive window, determining if it should activate.
         /// </summary>
-        [FieldOffset(344)] public delegate* managed<ref WinForm, Handle, HitTestValues, WndProcMsgType, nint> OnMouseActivate;
+        [FieldOffset(344)] public delegate* managed<ref WinForm, HANDLE, HitTestValues, WndProcMsgType, long> OnMouseActivate;
 
         /// <summary>
         /// Occurs when the application to which the window belongs is activated or deactivated.
@@ -238,11 +239,11 @@ unsafe partial struct WinForm
         /// <summary>
         /// A high-priority hook to intercept messages before any other processing.
         /// </summary>
-        [FieldOffset(384)] public delegate* managed<ref WinForm, WndProcMsgType, WParam, LParam, LResult?> PreProcessWndProc;
+        [FieldOffset(384)] public delegate* managed<ref WinForm, WndProcMsgType, WPARAM, LPARAM, LRESULT?> PreProcessWndProc;
         /// <summary>
         /// A fallback hook to handle messages that were not recognized by the default logic.
         /// </summary>
-        [FieldOffset(392)] public delegate* managed<ref WinForm, WndProcMsgType, WParam, LParam, LResult?> ProcessUnknownWndProc;
+        [FieldOffset(392)] public delegate* managed<ref WinForm, WndProcMsgType, WPARAM, LPARAM, LRESULT?> ProcessUnknownWndProc;
 
         /// <summary>
         /// Occurs when the enabled/disabled state of the window changes.
@@ -263,7 +264,7 @@ unsafe partial struct WinForm
         [FieldOffset(440)] public delegate* managed<ref WinForm, bool, void> OnSetRedraw;
 
         [FieldOffset(448)] public delegate* managed<ref WinForm, void> OnSysColorChange;
-        [FieldOffset(456)] public delegate* managed<ref WinForm, nuint, char*, void> OnSettingChange;
+        [FieldOffset(456)] public delegate* managed<ref WinForm, ulong, char*, void> OnSettingChange;
         [FieldOffset(464)] public delegate* managed<ref WinForm, void> OnFontChange;
         [FieldOffset(472)] public delegate* managed<ref WinForm, void> OnTimeChange;
 
@@ -271,19 +272,19 @@ unsafe partial struct WinForm
         [FieldOffset(488)] public delegate* managed<ref WinForm, bool, uint, void> OnEndSession;
         [FieldOffset(496)] public delegate* managed<ref WinForm, bool> OnQueryOpen;
 
-        [FieldOffset(504)] public delegate* managed<ref WinForm, ref MinMaxInfo, void> OnGetMinMaxInfo;
+        [FieldOffset(504)] public delegate* managed<ref WinForm, ref MINMAXINFO, void> OnGetMINMAXINFO;
 
-        [FieldOffset(512)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColorMsgBox;
-        [FieldOffset(520)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColorDlg;
+        [FieldOffset(512)] public delegate* managed<ref WinForm, HANDLE, HANDLE, HANDLE> OnCtlColorMsgBox;
+        [FieldOffset(520)] public delegate* managed<ref WinForm, HANDLE, HANDLE, HANDLE> OnCtlColorDlg;
 
         [FieldOffset(528)] public delegate* managed<ref WinForm, void> OnQueuedSync;
 
         [FieldOffset(536)] public delegate* managed<ref WinForm, int, void> OnQuit;
 
-        [FieldOffset(544)] public delegate* managed<ref WinForm, char*, nuint, nint> OnGetText;
-        [FieldOffset(552)] public delegate* managed<ref WinForm, nint> OnGetTextLength;
+        [FieldOffset(544)] public delegate* managed<ref WinForm, char*, ulong, long> OnGetText;
+        [FieldOffset(552)] public delegate* managed<ref WinForm, long> OnGetTextLength;
 
-        [FieldOffset(560)] public delegate* managed<ref WinForm, Handle, Handle, Handle> OnCtlColor;
+        [FieldOffset(560)] public delegate* managed<ref WinForm, HANDLE, HANDLE, HANDLE> OnCtlColor;
 
         /// <summary>
         /// Reserved 64-byte block for storing custom user data or additional function pointers within the VTABLE.

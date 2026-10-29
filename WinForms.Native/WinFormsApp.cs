@@ -1,8 +1,9 @@
-﻿namespace WinForms.Native;
+﻿using System.Runtime.CompilerServices;
 
-using System.Runtime.CompilerServices;
+using TypedWinAPI.Kernel32;
+using TypedWinAPI.User32;
 
-using PInvoke;
+namespace WinForms.Native;
 
 /// <summary>
 /// Provides helpers to register a Win32 window class, create and show WinForm windows, run the native message loop, and
@@ -20,14 +21,14 @@ public unsafe static class WinFormsApp
     /// fails.</returns>
     public static ATOM Initialize()
     {
-        HInstance hInst = Kernel32.GetCurrentModule();
+        var hModule = (HINSTANCE)Kernel32.GetModuleHandleW((char*)null);
 
-        WndClassExW wc = new()
+        WNDCLASSEXW wc = new()
         {
             style = ClassStyles.Standard,
             lpfnWndProc = &WinForm.DefaultWndProc,
-            hInstance = hInst,
-            hCursor = User32.LoadCursorW(default, (char*)(int)DefaultCursors.Arrow),
+            hInstance = hModule,
+            hCursor = User32.LoadCursorW(hModule, (char*)(int)DefaultCursors.Arrow),
             lpszClassName = WinForm.DefaultClassNamePointer
         };
 
@@ -45,24 +46,23 @@ public unsafe static class WinFormsApp
     /// <param name="hWndParent">Handle of the parent window; defaults to none to create a top-level window.</param>
     public static void Run(ref WinForm winForm, char* initialTitle = null, HWND hWndParent = default)
     {
-        HInstance hInst = Kernel32.GetCurrentModule();
+        var hModule = (HINSTANCE)Kernel32.GetModuleHandleW((char*)null);
         fixed (WinForm* pForm = &winForm)
             winForm.HWND = User32.CreateWindowExW(
                 WindowExStyles.None,
                 WinForm.DefaultClassNamePointer,
                 initialTitle is null ? WinForm.DefaultClassNamePointer : initialTitle,
                 WindowStyles.OverlappedWindow,
-                User32Consts.CW_USEDEFAULT, User32Consts.CW_USEDEFAULT,
-                User32Consts.CW_USEDEFAULT, User32Consts.CW_USEDEFAULT,
-                hWndParent, default, hInst, pForm
+                0, 0, 0, 0,
+                hWndParent, default, hModule, pForm
             );
 
-        if (winForm.HWND == Handle.Zero)
+        if (winForm.HWND == null)
             return;
 
         User32.ShowWindow(winForm.HWND, ShowWindowCommand.Show);
 
-        while (User32.GetMessageW(out MSG msg, default, 0, 0))
+        while (User32.GetMessageW(out MSG msg, winForm.HWND, 0, 0))
         {
             User32.TranslateMessage(in msg);
             User32.DispatchMessageW(in msg);
@@ -80,24 +80,23 @@ public unsafe static class WinFormsApp
     /// <param name="hWndParent">Handle of the parent window; defaults to none to create a top-level window.</param>
     public static void Run(ref WinForm winForm, string? initialTitle = null, HWND hWndParent = default)
     {
-        HInstance hInst = Kernel32.GetCurrentModule();
+        var hInst = (HINSTANCE)Kernel32.GetModuleHandleW((char*)null);
         fixed (WinForm* pForm = &winForm)
             winForm.HWND = User32.CreateWindowExW(
                 WindowExStyles.None,
                 WinForm.DefaultClassNameConst,
                 initialTitle is null ? WinForm.DefaultClassNameConst : initialTitle,
                 WindowStyles.OverlappedWindow,
-                User32Consts.CW_USEDEFAULT, User32Consts.CW_USEDEFAULT,
-                User32Consts.CW_USEDEFAULT, User32Consts.CW_USEDEFAULT,
+                0, 0, 0, 0,
                 hWndParent, default, hInst, pForm
             );
 
-        if (winForm.HWND == default(Handle))
+        if (winForm.HWND == null)
             return;
 
         User32.ShowWindow(winForm.HWND, ShowWindowCommand.Show);
 
-        while (User32.GetMessageW(out MSG msg, default, 0, 0))
+        while (User32.GetMessageW(out MSG msg, winForm.HWND, 0, 0))
         {
             User32.TranslateMessage(in msg);
             User32.DispatchMessageW(in msg);
